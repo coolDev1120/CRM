@@ -1,3 +1,7 @@
+
+
+
+
 import React from 'react';
 import { Table, Pagination, Space, Input } from 'antd';
 import { Typography, Button } from '@mui/material';
@@ -89,7 +93,7 @@ export default function EcommerceProductList() {
 			quantity: 'New York No. 1 Lake Park',
 		},
 		{
-			key: '1',
+			key: '2',
 			title: 'John Brown',
 			category: 11,
 			subcategory: 'qer',
@@ -189,9 +193,22 @@ export default function EcommerceProductList() {
 				<Divider />
 
 				<div style={{ marginTop: '20px', marginBottom: '20px', display: 'flex' }}>
-					<div>
+					<FormControl sx={{ width: '100px' }} size="small">
+						<InputLabel id="select-subcategory"></InputLabel>
+						<Select
+							labelId="select-subcategory"
+							id="subcategory"
+							value={age}
+							onChange={handleChange}
+						>
+							<MenuItem value={10}>10</MenuItem>
+							<MenuItem value={20}>20</MenuItem>
+							<MenuItem value={30}>30</MenuItem>
+						</Select>
+					</FormControl>
+					<div style={{ flex: '1 1 0%', textAlign: 'right' }}>
 						<Input size="large" placeholder="Search..." style={{ width: '200px' }} />
-						<Button variant="contained" sx={{ backgroundColor: "#9B7E4A" }}>
+						<Button variant="contained" sx={{ backgroundColor: "#9B7E4A", ml: '20px', mr: '20px' }} >
 							Export
 						</Button>
 						<Button variant="contained" sx={{ backgroundColor: "#9B7E4A" }}>

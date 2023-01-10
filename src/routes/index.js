@@ -75,8 +75,12 @@ export default function Router() {
         </AuthGuard>
       ),
       children: [
-        { element: <Navigate to="/dashboard/app" replace /> },
-        { path: 'app', element: <GeneralApp /> },
+        { element: <Navigate to="/dashboard/index" replace /> },
+        { path: 'index', element: <GeneralApp /> },
+        { path: 'materials', element: <EcommerceProductList /> },
+        { path: 'jobs', element: <Jobs /> },
+        { path: 'jobs/add', element: <AddJob /> },
+        { path: 'jobs/edit/:id', element: <EditJob /> },
         { path: 'ecommerce', element: <GeneralEcommerce /> },
         { path: 'analytics', element: <GeneralAnalytics /> },
         { path: 'banking', element: <GeneralBanking /> },
@@ -156,7 +160,7 @@ export default function Router() {
     {
       path: '/',
       children: [
-        { element: <Navigate to="/dashboard/app" replace /> }
+        { element: <Navigate to="/dashboard/index" replace /> }
       ]
     },
     { path: '*', element: <Navigate to="/404" replace /> }
@@ -172,13 +176,17 @@ const ResetPassword = Loadable(lazy(() => import('../pages/authentication/ResetP
 const VerifyCode = Loadable(lazy(() => import('../pages/authentication/VerifyCode')));
 // Dashboard
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/GeneralApp')));
+const EcommerceProductList = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductList')));
+const Jobs = Loadable(lazy(() => import('../pages/dashboard/Jobs/Jobs')));
+const AddJob = Loadable(lazy(() => import('../pages/dashboard/Jobs/Add')));
+const EditJob = Loadable(lazy(() => import('../pages/dashboard/Jobs/Edit')));
+
 const GeneralEcommerce = Loadable(lazy(() => import('../pages/dashboard/GeneralEcommerce')));
 const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/GeneralAnalytics')));
 const GeneralBanking = Loadable(lazy(() => import('../pages/dashboard/GeneralBanking')));
 const GeneralBooking = Loadable(lazy(() => import('../pages/dashboard/GeneralBooking')));
 const EcommerceShop = Loadable(lazy(() => import('../pages/dashboard/EcommerceShop')));
 const EcommerceProductDetails = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductDetails')));
-const EcommerceProductList = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductList')));
 const EcommerceProductCreate = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductCreate')));
 const EcommerceCheckout = Loadable(lazy(() => import('../pages/dashboard/EcommerceCheckout')));
 const EcommerceInvoice = Loadable(lazy(() => import('../pages/dashboard/EcommerceInvoice')));

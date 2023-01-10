@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 // material
-import { alpha, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { Box, Stack, Drawer, Tooltip, CardActionArea } from '@mui/material';
 // hooks
 import useAuth from '../../hooks/useAuth';
@@ -83,7 +83,6 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
-  const { user } = useAuth();
 
   const { isCollapse, collapseClick, collapseHover, onToggleCollapse, onHoverEnter, onHoverLeave } =
     useCollapseDrawer();
@@ -129,7 +128,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
         </Stack>
       </Stack>
 
-      <img style={{padding: '10px'}} src='/static/mock-images/products/logo.webp' />
+      <img style={{ padding: '10px' }} src='/static/mock-images/products/logo.webp' />
 
       <NavSection
         sx={{ background: 'rgb(32, 32, 32)', color: '#fff' }}

@@ -1,5 +1,6 @@
 import WorkIcon from "@mui/icons-material/Work";
 import GroupsIcon from "@mui/icons-material/Groups";
+// import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import LayersOutlinedIcon from "@mui/icons-material/LayersOutlined";
 import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -8,13 +9,13 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import PhotoSizeSelectLargeOutlinedIcon from "@mui/icons-material/PhotoSizeSelectLargeOutlined";
 import EmojiTransportationOutlinedIcon from "@mui/icons-material/EmojiTransportationOutlined";
-import LightbulbCircleOutlinedIcon from "@mui/icons-material/LightbulbCircleOutlined";
-
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // components
 import Label from '../../components/Label';
 import SvgIconStyle from '../../components/SvgIconStyle';
+
+
 
 // ----------------------------------------------------------------------
 
@@ -45,67 +46,67 @@ const sidebarConfig = [
     items: [
       {
         title: 'dashboard',
-        path: PATH_DASHBOARD.general.app,
+        path: PATH_DASHBOARD.general.index,
         icon: ICONS.dashboard
       },
       {
         title: 'matrials',
-        path: PATH_DASHBOARD.user.profile,
+        path: PATH_DASHBOARD.general.materials,
         icon: <LayersOutlinedIcon />
       },
       {
         title: 'jobs',
-        path: PATH_DASHBOARD.user.profile,
+        path: PATH_DASHBOARD.general.jobs,
         icon: <WorkIcon />
       },
       {
         title: "Enquiries",
-        path: PATH_DASHBOARD.user.profile,
+        path: PATH_DASHBOARD.general.index,
         icon: <QuestionAnswerOutlinedIcon />,
       },
       {
         title: "Maps",
-        path: PATH_DASHBOARD.user.profile,
+        path: PATH_DASHBOARD.general.index,
         icon: <LocationOnIcon />,
       },
       {
         title: "Finance",
-        path: PATH_DASHBOARD.user.profile,
+        path: PATH_DASHBOARD.general.index,
         icon: <MonetizationOnIcon />,
       },
       {
         title: "Calendar",
-        path: PATH_DASHBOARD.user.profile,
+        path: PATH_DASHBOARD.general.index,
         icon: ICONS.calendar
       },
       {
         title: "Documents",
-        path: PATH_DASHBOARD.user.profile,
+        path: PATH_DASHBOARD.general.index,
         icon: <DescriptionOutlinedIcon />,
       },
       {
         title: "Snagging",
-        path: PATH_DASHBOARD.user.profile,
-        icon: <LightbulbCircleOutlinedIcon />,
+        path: PATH_DASHBOARD.general.index,
+        icon: <DescriptionOutlinedIcon />,
       },
       {
         title: "Annual Power",
-        path: PATH_DASHBOARD.user.profile,
+        path: PATH_DASHBOARD.general.index,
         icon: <CalendarTodayOutlinedIcon />,
       },
       {
         title: "Assets Management",
-        path: PATH_DASHBOARD.user.profile,
+        path: PATH_DASHBOARD.general.index,
         icon: <EmojiTransportationOutlinedIcon />,
       },
       {
         title: "Staff",
-        path: PATH_DASHBOARD.user.profile,
+        path: PATH_DASHBOARD.general.index,
         icon: <GroupsIcon />,
       },
       {
         title: "Template",
-        path: PATH_DASHBOARD.user.profile,
+        path: PATH_DASHBOARD.general.index,
         icon: <PhotoSizeSelectLargeOutlinedIcon />,
       },
       // { title: 'calendar', path: PATH_DASHBOARD.calendar, icon: ICONS.calendar },
@@ -116,7 +117,75 @@ const sidebarConfig = [
     ]
   },
 
-  
+  // MANAGEMENT
+  // ----------------------------------------------------------------------
+  // {
+  //   subheader: 'management',
+  //   items: [
+  //     // MANAGEMENT : USER
+  //     {
+  //       title: 'user',
+  //       path: PATH_DASHBOARD.user.root,
+  //       icon: ICONS.user,
+  //       children: [
+  //         { title: 'profile', path: PATH_DASHBOARD.user.profile },
+  //         { title: 'cards', path: PATH_DASHBOARD.user.cards },
+  //         { title: 'list', path: PATH_DASHBOARD.user.list },
+  //         { title: 'create', path: PATH_DASHBOARD.user.newUser },
+  //         { title: 'edit', path: PATH_DASHBOARD.user.editById },
+  //         { title: 'account', path: PATH_DASHBOARD.user.account }
+  //       ]
+  //     },
+
+  //     // MANAGEMENT : E-COMMERCE
+  //     {
+  //       title: 'e-commerce',
+  //       path: PATH_DASHBOARD.eCommerce.root,
+  //       icon: ICONS.cart,
+  //       children: [
+  //         { title: 'shop', path: PATH_DASHBOARD.eCommerce.shop },
+  //         { title: 'product', path: PATH_DASHBOARD.eCommerce.productById },
+  //         { title: 'create', path: PATH_DASHBOARD.eCommerce.newProduct },
+  //         { title: 'edit', path: PATH_DASHBOARD.eCommerce.editById },
+  //         { title: 'checkout', path: PATH_DASHBOARD.eCommerce.checkout },
+  //         { title: 'invoice', path: PATH_DASHBOARD.eCommerce.invoice }
+  //       ]
+  //     },
+
+  //     // MANAGEMENT : BLOG
+  //     {
+  //       title: 'blog',
+  //       path: PATH_DASHBOARD.blog.root,
+  //       icon: ICONS.blog,
+  //       children: [
+  //         { title: 'posts', path: PATH_DASHBOARD.blog.posts },
+  //         { title: 'post', path: PATH_DASHBOARD.blog.postById },
+  //         { title: 'new post', path: PATH_DASHBOARD.blog.newPost }
+  //       ]
+  //     }
+  //   ]
+  // },
+
+  // // APP
+  // // ----------------------------------------------------------------------
+  // {
+  //   subheader: 'app',
+  //   items: [
+  //     {
+  //       title: 'mail',
+  //       path: PATH_DASHBOARD.mail.root,
+  //       icon: ICONS.mail,
+  //       info: <Label color="error">2</Label>
+  //     },
+  //     { title: 'chat', path: PATH_DASHBOARD.chat.root, icon: ICONS.chat },
+  //     { title: 'calendar', path: PATH_DASHBOARD.calendar, icon: ICONS.calendar },
+  //     {
+  //       title: 'kanban',
+  //       path: PATH_DASHBOARD.kanban,
+  //       icon: ICONS.kanban
+  //     }
+  //   ]
+  // }
 ];
 
 export default sidebarConfig;

@@ -37,7 +37,7 @@ export default function RegisterForm() {
           country: '',
           email: values.email,
           password: values.password,
-          name: values.firstName + values.lastName,
+          name: values.firstName + " " + values.lastName,
           gender: '',
           agent: ''
         })

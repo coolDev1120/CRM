@@ -29,14 +29,18 @@
 .bg-sidebar {
     background: rgb(32, 32, 32);
 }
+table {
+    font-family: Public Sans,sans-serif !important;
+    text-align: center !important;
+}
 
-.css-6494io-MuiButtonBase-root-MuiListItemButton-root {
+/* .css-6494io-MuiButtonBase-root-MuiListItemButton-root {
     background-color: rgb(138 118 49) !important;
-}
+} */
 
-.css-6494io-MuiButtonBase-root-MuiListItemButton-root:before {
+/* .css-6494io-MuiButtonBase-root-MuiListItemButton-root:before {
     background-color: #8a7631 !important;
-}
+} */
 
 .css-9w714p {
     display: none !important;
@@ -46,22 +50,22 @@
     max-width: 870px !important;
 }
 
-.css-q2v5of-MuiButtonBase-root-MuiCheckbox-root.Mui-checked,
+/* .css-q2v5of-MuiButtonBase-root-MuiCheckbox-root.Mui-checked,
 .css-q2v5of-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
     color: #9B7E4A !important;
-}
+} */
 
-.css-qw6s9w-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root:hover {
+/* .css-qw6s9w-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root:hover {
     background-color: #8a7631 !important;
-}
+} */
 
-.css-n26ql7-MuiInputBase-input-MuiOutlinedInput-input:active {
+/* .css-n26ql7-MuiInputBase-input-MuiOutlinedInput-input:active {
     border-color: #8a7631 !important;
-}
+} */
 
-.css-16of2a1-MuiButtonBase-root-MuiButton-root:hover {
+/* .css-16of2a1-MuiButtonBase-root-MuiButton-root:hover {
     background-color: #796621 !important;
-}
+} */
 .ant-table-pagination {
     display: none !important;
 }

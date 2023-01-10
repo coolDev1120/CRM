@@ -40,7 +40,7 @@ export default function LoginForm() {
           console.log(res.data.flag);
           if (res.data.flag === 'success') {
             localStorage.setItem('token', res.data.token);
-            window.location = '/dashboard/app';
+            window.location = '/dashboard/index';
           } else {
             setErrors({ afterSubmit: res.data.error });
           }
