@@ -1,5 +1,6 @@
 // material
 import { Container, Grid, Stack, Box, Card, Typography, Button } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 // hooks
 // eslint-disable-next-line camelcase
@@ -8,6 +9,7 @@ import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import CreditCardRoundedIcon from '@mui/icons-material/CreditCardRounded';
 import WorkOutlineRoundedIcon from '@mui/icons-material/WorkOutlineRounded';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
+import { styled, alpha } from '@mui/material/styles';
 
 // eslint-disable-next-line import/no-duplicates
 import useSettings from '../../hooks/useSettings';
@@ -22,8 +24,12 @@ import BankingBalanceStatistics from 'src/components/_dashboard/general-banking/
 
 // ----------------------------------------------------------------------
 
+
 export default function GeneralApp() {
   const { themeStretch } = useSettings();
+  const theme = useTheme();
+  const PRIMARY_MAIN = theme.palette.primary.main;
+
   const events = [
     {
       calendar: <CalendarEvent />,
@@ -34,7 +40,7 @@ export default function GeneralApp() {
         />
       ),
       action: (
-        <Button variant="contained" sx={{ backgroundColor: "#9B7E4A" }}>
+        <Button variant="contained">
           Email
         </Button>
       ),
@@ -48,7 +54,7 @@ export default function GeneralApp() {
         />
       ),
       action: (
-        <Button variant="contained" sx={{ backgroundColor: "#9B7E4A" }}>
+        <Button variant="contained">
           Email
         </Button>
       ),
@@ -62,7 +68,7 @@ export default function GeneralApp() {
         />
       ),
       action: (
-        <Button variant="contained" sx={{ backgroundColor: "#9B7E4A" }}>
+        <Button variant="contained">
           Email
         </Button>
       ),
@@ -76,7 +82,7 @@ export default function GeneralApp() {
         />
       ),
       action: (
-        <Button variant="contained" sx={{ backgroundColor: "#9B7E4A" }}>
+        <Button variant="contained">
           Email
         </Button>
       ),
@@ -182,24 +188,14 @@ export default function GeneralApp() {
     { 1: <b>New notice</b>, 2: "Martin", 3: "Dec 25, 2022" },
   ];
 
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
-
   return (
     <>
       <Box sx={{ mx: '-15px', py: '15px', px: '20px', mt: '-24px', mb: '20px', borderBottom: '1px solid', borderColor: '#c3c3c3', background: '#eee' }}>
         <div style={{ display: 'flex' }}>
-          <ColorLensIcon sx={{ fontSize: '58px', mx: '15px', color: 'rgb(138, 118, 49)' }} />
+          <ColorLensIcon sx={{ fontSize: '58px', mx: '15px', color: PRIMARY_MAIN}} />
           <div>
             <Typography
-              color="text.primary"
+              color={PRIMARY_MAIN}
               sx={{
                 fontSize: '23px',
                 fontWeight: 'bold',
@@ -220,7 +216,8 @@ export default function GeneralApp() {
         <Container maxWidth={themeStretch ? false : 'xl'}>
           <Grid container spacing={3}>
             <Grid item lg={3} md={6} xs={12}>
-              <Card sx={{ display: 'flex', alignItems: 'center', p: 3, background: 'rgb(138, 118, 49)', color: '#fff' }}>
+              <Card sx={{ display: 'flex', alignItems: 'center', p: 3, color: '#fff', background: PRIMARY_MAIN }}>
+
                 <Box sx={{ flexGrow: 1 }}>
                   <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
                     <PersonAddAltRoundedIcon sx={{ fontSize: '70px' }} />
@@ -233,11 +230,12 @@ export default function GeneralApp() {
                 <Typography sx={{ fontSize: '35px', marginTop: '-43px' }} variant="subtitle2">
                   10
                 </Typography>
+
               </Card>
             </Grid>
 
             <Grid item lg={3} md={6} xs={12}>
-              <Card sx={{ display: 'flex', alignItems: 'center', p: 3, background: 'rgb(138, 118, 49)', color: '#fff' }}>
+              <Card sx={{ display: 'flex', alignItems: 'center', p: 3, background: PRIMARY_MAIN, color: '#fff' }}>
                 <Box sx={{ flexGrow: 1 }}>
                   <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
                     <WorkOutlineRoundedIcon sx={{ fontSize: '70px' }} />
@@ -254,7 +252,7 @@ export default function GeneralApp() {
             </Grid>
 
             <Grid item lg={3} md={6} xs={12}>
-              <Card sx={{ display: 'flex', alignItems: 'center', p: 3, background: 'rgb(138, 118, 49)', color: '#fff' }}>
+              <Card sx={{ display: 'flex', alignItems: 'center', p: 3, background: PRIMARY_MAIN, color: '#fff' }}>
                 <Box sx={{ flexGrow: 1 }}>
                   <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
                     <CreditCardRoundedIcon sx={{ fontSize: '70px' }} />
@@ -271,7 +269,7 @@ export default function GeneralApp() {
             </Grid>
 
             <Grid item lg={3} md={6} xs={12}>
-              <Card sx={{ display: 'flex', alignItems: 'center', p: 3, background: 'rgb(138, 118, 49)', color: '#fff' }}>
+              <Card sx={{ display: 'flex', alignItems: 'center', p: 3, background: PRIMARY_MAIN, color: '#fff' }}>
                 <Box sx={{ flexGrow: 1 }}>
                   <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
                     <ContentCopyRoundedIcon sx={{ fontSize: '70px' }} />

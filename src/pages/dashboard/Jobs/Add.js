@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Form, Input, DatePicker, TimePicker, Checkbox } from 'antd';
+import { Form, Input, DatePicker, TimePicker, Checkbox, Select } from 'antd';
 import { Button } from '@mui/material';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-import { Box, Card, Container, Typography, Grid, FormControlLabel } from '@mui/material';
+import { Box, Card, Container, Typography, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 import Page from '../../../components/Page';
 
 
@@ -13,6 +14,7 @@ const App = () => {
     const [success, setSuccess] = useState(false);
 
     const onFinish = (values) => {
+        values.email = jwt_decode(localStorage.getItem('token')).email
         console.log('Success:', values);
         axios
             .post(`${process.env.REACT_APP_SERVER_URL}/addjobs`, values)
@@ -31,7 +33,7 @@ const App = () => {
 
     return (
         <>
-            <Page title="Add Job">
+            <Page title="The Yorkshire Resin Company Ltd | Add Job">
                 <Typography
                     color="text.primary"
                     sx={{
@@ -80,7 +82,28 @@ const App = () => {
                                                 },
                                             ]}
                                         >
-                                            <Input />
+                                            <Select
+                                                showSearch
+                                                placeholder="Select a Team"
+                                                optionFilterProp="children"
+                                                filterOption={(input, option) =>
+                                                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                                                }
+                                                options={[
+                                                    {
+                                                        value: 'jack',
+                                                        label: 'Jack',
+                                                    },
+                                                    {
+                                                        value: 'lucy',
+                                                        label: 'Lucy',
+                                                    },
+                                                    {
+                                                        value: 'tom',
+                                                        label: 'Tom',
+                                                    },
+                                                ]}
+                                            />
                                         </Form.Item>
                                     </Grid>
                                 </Grid>
@@ -111,7 +134,14 @@ const App = () => {
                                                 },
                                             ]}
                                         >
-                                            <Input />
+                                            <Select
+                                                mode="tags"
+                                                size="middle"
+                                                placeholder="Please select"
+                                                style={{
+                                                    width: '100%',
+                                                }}
+                                            />
                                         </Form.Item>
                                     </Grid>
                                 </Grid>
@@ -170,7 +200,28 @@ const App = () => {
                                                 },
                                             ]}
                                         >
-                                            <Input />
+                                            <Select
+                                                showSearch
+                                                placeholder="Select a Team"
+                                                optionFilterProp="children"
+                                                filterOption={(input, option) =>
+                                                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                                                }
+                                                options={[
+                                                    {
+                                                        value: 'jack',
+                                                        label: 'Jack',
+                                                    },
+                                                    {
+                                                        value: 'lucy',
+                                                        label: 'Lucy',
+                                                    },
+                                                    {
+                                                        value: 'tom',
+                                                        label: 'Tom',
+                                                    },
+                                                ]}
+                                            />
                                         </Form.Item>
                                     </Grid>
                                 </Grid>
@@ -325,7 +376,32 @@ const App = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input />
+                                                <Select
+                                                    showSearch
+                                                    placeholder="Select a Team"
+                                                    optionFilterProp="children"
+                                                    filterOption={(input, option) =>
+                                                        (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                                                    }
+                                                    options={[
+                                                        {
+                                                            value: 'Everyone',
+                                                            label: 'Everyone',
+                                                        },
+                                                        {
+                                                            value: 'Accountant Only',
+                                                            label: 'Accountant Only',
+                                                        },
+                                                        {
+                                                            value: 'Management Only',
+                                                            label: 'Management Only',
+                                                        },
+                                                        {
+                                                            value: 'Sales Only',
+                                                            label: 'Sales Only',
+                                                        },
+                                                    ]}
+                                                />
                                             </Form.Item>
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={3}>
@@ -357,7 +433,7 @@ const App = () => {
                                         <Grid item xs={12} md={6} lg={3}>
                                             <Form.Item
                                                 label="Who can see this?"
-                                                name="jobvalue"
+                                                name="seeable"
                                                 rules={[
                                                     {
                                                         required: true,
@@ -365,24 +441,36 @@ const App = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input placeholder='EVERYONE' />
+                                                <Select
+                                                    showSearch
+                                                    placeholder="Select a Team"
+                                                    optionFilterProp="children"
+                                                    filterOption={(input, option) =>
+                                                        (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                                                    }
+                                                    options={[
+                                                        {
+                                                            value: 'Everyone',
+                                                            label: 'Everyone',
+                                                        },
+                                                        {
+                                                            value: 'Accountant Only',
+                                                            label: 'Accountant Only',
+                                                        },
+                                                        {
+                                                            value: 'Management Only',
+                                                            label: 'Management Only',
+                                                        },
+                                                        {
+                                                            value: 'Sales Only',
+                                                            label: 'Sales Only',
+                                                        },
+                                                    ]}
+                                                />
                                             </Form.Item>
                                         </Grid>
                                     </Grid>
                                 </Box>
-
-                                {/* <Form.Item
-                                    label="Contact"
-                                    name="contact"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your contact!',
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
 
                                 <Form.Item
                                     label="Responsible"
@@ -448,34 +536,6 @@ const App = () => {
                                 >
                                     <Input />
                                 </Form.Item>
-
-
-                                <Form.Item
-                                    label="Postcode"
-                                    name="postcode"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your postcode!',
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
-
-                                <Form.Item
-                                    label="Email"
-                                    name="email"
-                                    rules={[
-                                        {
-                                            type: 'email',
-                                            required: true,
-                                            message: 'Please input your email!',
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item> */}
 
                                 <Form.Item
                                     wrapperCol={{

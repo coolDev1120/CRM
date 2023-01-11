@@ -1,7 +1,6 @@
 // hooks
 // eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode';
-import useAuth from '../hooks/useAuth';
 //
 import { MAvatar } from './@material-extend';
 import createAvatar from '../utils/createAvatar';
@@ -9,7 +8,6 @@ import createAvatar from '../utils/createAvatar';
 // ----------------------------------------------------------------------
 
 export default function MyAvatar({ ...other }) {
-  const { user } = useAuth();
 
   return (
     <MAvatar

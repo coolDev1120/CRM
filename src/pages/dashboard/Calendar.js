@@ -23,6 +23,7 @@ import Page from '../../components/Page';
 import { DialogAnimate } from '../../components/animate';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { CalendarForm, CalendarStyle, CalendarToolbar } from '../../components/_dashboard/calendar';
+import { isConstructorDeclaration } from 'typescript';
 
 // ----------------------------------------------------------------------
 
@@ -46,6 +47,7 @@ export default function Calendar() {
   const selectedEvent = useSelector(selectedEventSelector);
   const { events, isOpenModal, selectedRange } = useSelector((state) => state.calendar);
 
+  // console.log(events)
   useEffect(() => {
     dispatch(getEvents());
   }, [dispatch]);

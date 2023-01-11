@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import Page from '../../../components/Page';
 
-
 const App = () => {
     const [form] = Form.useForm();
     const [success, setSuccess] = useState(false);
@@ -58,7 +57,7 @@ const App = () => {
 
     return (
         <>
-            <Page title="Edit Job">
+            <Page title="The Yorkshire Resin Company Ltd | Edit Job">
                 <Typography
                     color="text.primary"
                     sx={{

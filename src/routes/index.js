@@ -81,6 +81,11 @@ export default function Router() {
         { path: 'jobs', element: <Jobs /> },
         { path: 'jobs/add', element: <AddJob /> },
         { path: 'jobs/edit/:id', element: <EditJob /> },
+        { path: 'calendar', element: <Calendar /> },
+        { path: 'accounts', element: <Accounts /> },
+        { path: 'account/add', element: <AddAccount /> },
+        { path: 'account/edit/:id', element: <EditAccount /> },
+
         { path: 'ecommerce', element: <GeneralEcommerce /> },
         { path: 'analytics', element: <GeneralAnalytics /> },
         { path: 'banking', element: <GeneralBanking /> },
@@ -138,7 +143,6 @@ export default function Router() {
             { path: ':conversationKey', element: <Chat /> }
           ]
         },
-        { path: 'calendar', element: <Calendar /> },
         { path: 'kanban', element: <Kanban /> }
       ]
     },
@@ -180,6 +184,9 @@ const EcommerceProductList = Loadable(lazy(() => import('../pages/dashboard/Ecom
 const Jobs = Loadable(lazy(() => import('../pages/dashboard/Jobs/Jobs')));
 const AddJob = Loadable(lazy(() => import('../pages/dashboard/Jobs/Add')));
 const EditJob = Loadable(lazy(() => import('../pages/dashboard/Jobs/Edit')));
+const Accounts = Loadable(lazy(() => import('../pages/dashboard/Accouts/index')));
+const AddAccount = Loadable(lazy(() => import('../pages/dashboard/Accouts/add')));
+const EditAccount = Loadable(lazy(() => import('../pages/dashboard/Accouts/Edit')));
 
 const GeneralEcommerce = Loadable(lazy(() => import('../pages/dashboard/GeneralEcommerce')));
 const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/GeneralAnalytics')));

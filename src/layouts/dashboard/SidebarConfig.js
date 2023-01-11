@@ -76,7 +76,7 @@ const sidebarConfig = [
       },
       {
         title: "Calendar",
-        path: PATH_DASHBOARD.general.index,
+        path: '/dashboard/calendar',
         icon: ICONS.calendar
       },
       {

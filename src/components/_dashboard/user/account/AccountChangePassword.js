@@ -4,10 +4,8 @@ import { useFormik, Form, FormikProvider } from 'formik';
 // material
 import { Stack, Card, TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-// utils
-import fakeRequest from '../../../../utils/fakeRequest';
-
-// ----------------------------------------------------------------------
+import axios from 'axios'
+import jwt_decode from 'jwt-decode';
 
 export default function AccountChangePassword() {
   const { enqueueSnackbar } = useSnackbar();
@@ -26,10 +24,20 @@ export default function AccountChangePassword() {
     },
     validationSchema: ChangePassWordSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      await fakeRequest(500);
-      setSubmitting(false);
-      alert(JSON.stringify(values, null, 2));
-      enqueueSnackbar('Save success', { variant: 'success' });
+      values.email = jwt_decode(localStorage.getItem('token')).email
+      axios.post(`${process.env.REACT_APP_SERVER_URL}/setting/changePassword`, values)
+        .then(res => {
+          console.log(res.data)
+          console.log(`Your password successfully updated.`);
+          if (res.data.flag === 'success') {
+            enqueueSnackbar('Save success', { variant: 'success' });
+
+          }
+          if (res.data.flag === 'fail') {
+            enqueueSnackbar(res.data.message, { variant: 'error' });
+          }
+        })
+      console.log(values)
     }
   });
 

@@ -286,7 +286,7 @@ export default function EcommerceProductList() {
 
 	return (
 		<>
-			<Page title="Live Jobs">
+			<Page title="The Yorkshire Resin Company Ltd | Live Jobs">
 				<Typography
 					color="text.primary"
 					sx={{
