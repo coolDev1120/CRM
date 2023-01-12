@@ -21,6 +21,7 @@ const PageTitle = styled('div')(({ theme }) => ({
 export default function EcommerceProductList() {
 	const [data, setData] = useState([]);
 	const [change, SetChange] = useState(false);
+	const [refresh, SetRefresh] = useState(false);
 
 	const renderDetailsButton = (params) => {
 		return (
@@ -83,12 +84,20 @@ export default function EcommerceProductList() {
 			})
 	}
 
+
+
 	useEffect(() => {
-		axios.get(`${process.env.REACT_APP_SERVER_URL}/getusers`)
-			.then((res) => {
-				setData(res.data.data);
-			})
-	}, [change]);
+		setTimeout(() => {
+			SetRefresh(true)
+		}, 200);
+
+		return () => {
+			axios.get(`${process.env.REACT_APP_SERVER_URL}/getusers`)
+				.then((res) => {
+					setData(res.data.data);
+				})
+		}
+	}, [change, refresh]);
 
 	return (
 		<>
@@ -123,9 +132,6 @@ export default function EcommerceProductList() {
 						rowsPerPageOptions={[10]}
 						components={{
 							Toolbar: GridToolbar,
-						}}
-						sx={{
-							borderColor: 'primary.light'
 						}}
 					/>
 				</div>
