@@ -43,6 +43,7 @@ export default function EcommerceProductList() {
 				}
 			})
 	};
+	
 	const onFinishFailed = (errorInfo) => {
 		console.log('Failed:', errorInfo);
 	};
