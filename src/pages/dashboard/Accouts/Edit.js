@@ -38,7 +38,7 @@ export default function EcommerceProductList() {
 				console.log(res.data)
 				message.config({ top: 100, duration: 5, });
 				if (res.data.flag === "success") {
-					message.success(`Successfully edit account.`);
+					message.success(`You have successfully modified your account.`);
 				}
 				else if (res.data.flag === 'failed') {
 					message.error(res.data.message);
