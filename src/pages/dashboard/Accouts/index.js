@@ -84,8 +84,6 @@ export default function EcommerceProductList() {
 			})
 	}
 
-
-
 	useEffect(() => {
 		setTimeout(() => {
 			SetRefresh(true)
@@ -124,7 +122,7 @@ export default function EcommerceProductList() {
 						</div>
 					</div>
 				</Box>
-				<div style={{ height: '750px', width: '100%' }}>
+				<div style={{ height: 'auto', width: '100%' }}>
 					<DataGrid
 						rows={data}
 						columns={columns}
