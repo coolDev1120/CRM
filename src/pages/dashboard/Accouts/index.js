@@ -90,7 +90,7 @@ export default function EcommerceProductList() {
 		}, 200);
 
 		return () => {
-			axios.get(`${process.env.REACT_APP_SERVER_URL}/getusers`)
+			axios.post(`${process.env.REACT_APP_SERVER_URL}/getusers`)
 				.then((res) => {
 					setData(res.data.data);
 				})
@@ -122,7 +122,7 @@ export default function EcommerceProductList() {
 						</div>
 					</div>
 				</Box>
-				<div style={{ height: '700px', width: '100%' }}>
+				<div style={{ height: 'auto', width: '100%' }}>
 					<DataGrid
 						rows={data}
 						columns={columns}
