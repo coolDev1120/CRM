@@ -122,7 +122,7 @@ export default function EcommerceProductList() {
 						</div>
 					</div>
 				</Box>
-				<div style={{ height: 'auto', width: '100%' }}>
+				<div style={{ height: '700px', width: '100%' }}>
 					<DataGrid
 						rows={data}
 						columns={columns}
