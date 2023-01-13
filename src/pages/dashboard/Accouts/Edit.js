@@ -26,7 +26,9 @@ export default function EcommerceProductList() {
 	const onFinish = (values) => {
 		values.dateAdded = moment(values.dateAdded).format('YYYY-MM-DD')
 		values.colourCode = values.colourCode.hex;
+		console.log(values)
 		if (values.password !== values.confirm) {
+			message.config({ top: 100, duration: 5, });
 			message.error('Please type password or remove');
 			return;
 		}
