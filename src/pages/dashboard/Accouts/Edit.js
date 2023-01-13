@@ -29,7 +29,7 @@ export default function EcommerceProductList() {
 		console.log(values)
 		if (values.password && !values.confirm) {
 			message.config({ top: 100, duration: 5, });
-			message.error('Please type password or remove');
+			message.error(`Type your password only if you want to change it.`);
 			return;
 		}
 
