@@ -79,6 +79,7 @@ export default function Router() {
         { path: 'index', element: <GeneralApp /> },
         { path: 'materials', element: <Matrials /> },
         { path: 'materials/add', element: <AddMatrials /> },
+        { path: 'materials/edit/:id', element: <EditMatrials /> },
         { path: 'jobs', element: <Jobs /> },
         { path: 'jobs/add', element: <AddJob /> },
         { path: 'jobs/edit/:id', element: <EditJob /> },
@@ -182,7 +183,11 @@ const VerifyCode = Loadable(lazy(() => import('../pages/authentication/VerifyCod
 // Dashboard
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/GeneralApp')));
 const Matrials = Loadable(lazy(() => import('../pages/dashboard/Matrial/index')));
+
+// Materials
 const AddMatrials = Loadable(lazy(() => import('../pages/dashboard/Matrial/Add')));
+const EditMatrials = Loadable(lazy(() => import('../pages/dashboard/Matrial/Edit')));
+
 const Jobs = Loadable(lazy(() => import('../pages/dashboard/Jobs/Jobs')));
 const AddJob = Loadable(lazy(() => import('../pages/dashboard/Jobs/Add')));
 const EditJob = Loadable(lazy(() => import('../pages/dashboard/Jobs/Edit')));

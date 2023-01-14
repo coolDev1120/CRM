@@ -141,7 +141,7 @@ export default function EcommerceProductList() {
 			key: 'action',
 			render: (_, material_id) => (
 				<Space size="middle">
-					<Link to={`/dashboard/material/edit/${material_id.material_id}`}>
+					<Link to={`/dashboard/materials/edit/${material_id.material_id}`}>
 						<Button variant="outlined" sx={{ minWidth: '45px', padding: '5px' }}>
 							<BorderColorOutlinedIcon />
 						</Button>

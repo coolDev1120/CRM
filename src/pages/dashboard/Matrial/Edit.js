@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import { Form, Input, Select, message, Switch } from 'antd';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Button } from '@mui/material';
@@ -7,13 +7,17 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { Box, Card, Container, Typography, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 import Page from '../../../components/Page';
 
 const { TextArea } = Input;
 
 const App = () => {
+    const [form] = Form.useForm();
     const [success, setSuccess] = useState(false);
+    const { id } = useParams();
+    const [data, SetData] = useState({});
 
     const onFinish = (values) => {
         values.email = jwt_decode(localStorage.getItem('token')).email
@@ -23,12 +27,12 @@ const App = () => {
 
         console.log('Success:', values);
         axios
-            .post(`${process.env.REACT_APP_SERVER_URL}/addmaterial`, values)
+            .post(`${process.env.REACT_APP_SERVER_URL}/editmaterial`, { id: data.material_id, value: values })
             .then((res) => {
                 message.config({ top: 100, duration: 5, });
                 if (res.data.flag === 'success') {
                     setSuccess(true);
-                    message.success(`You have successfully added new material.`);
+                    message.success(`You have successfully modified material.`);
                 }
             })
             .catch((err) => {
@@ -39,9 +43,21 @@ const App = () => {
         console.log('Failed:', errorInfo);
     };
 
+    useEffect(() => {
+        axios
+            .post(`${process.env.REACT_APP_SERVER_URL}/getmaterialByid`, { id: id })
+            .then((res) => {
+                console.log(res.data.data[0])
+                SetData(res.data.data[0])
+                var input = res.data.data[0];
+                input.tags = JSON.parse(input.tags)
+                form.setFieldsValue(res.data.data[0]);
+            })
+    }, []);
+
     return (
         <>
-            <Page title="The Yorkshire Resin Company Ltd | Add New Matrial">
+            <Page title="The Yorkshire Resin Company Ltd | Edit New Matrial">
                 <Typography
                     color="text.primary"
                     sx={{
@@ -51,7 +67,7 @@ const App = () => {
                         padding: '10px',
                         mb: '20px'
                     }}>
-                    ADD NEW MATRIAL
+                    Edit NEW MATRIAL
                 </Typography>
                 <Card>
                     <Box sx={{ p: { xs: 3, md: 5 } }}>
@@ -59,10 +75,11 @@ const App = () => {
                             {
                                 success &&
                                 <Stack sx={{ width: '100%', my: '15px' }} spacing={2}>
-                                    <Alert severity="success">Success. You added job.</Alert>
+                                    <Alert severity="success">Success. You edited job.</Alert>
                                 </Stack>
                             }
                             <Form
+                            form={form}
                                 name="basic"
                                 layout="vertical"
                                 labelCol={{
@@ -420,7 +437,7 @@ const App = () => {
                                     <Button sx={{ mx: '15px' }} variant="contained" type="submit">
                                         Submit
                                     </Button>
-                                    <Link to="/dashboard/jobs" style={{ textDecoration: 'none' }}>
+                                    <Link to="/dashboard/materials" style={{ textDecoration: 'none' }}>
                                         <Button variant="outlined">Cancel</Button>
                                     </Link>
                                 </Form.Item>
