@@ -85,7 +85,7 @@ export default function EcommerceProductList() {
 							>
 								<Select placeholder="Select team">
 									<Option value="User">User</Option>
-									<Option value="team">Team</Option>
+									<Option value="Team">Team</Option>
 								</Select>
 							</Form.Item>
 
@@ -223,8 +223,8 @@ export default function EcommerceProductList() {
 								]}
 							>
 								<Select placeholder="Select staff">
-									<Option value="yes">Yes</Option>
-									<Option value="no">No</Option>
+									<Option value="Yes">Yes</Option>
+									<Option value="No">No</Option>
 								</Select>
 							</Form.Item>
 
@@ -252,10 +252,10 @@ export default function EcommerceProductList() {
 								]}
 							>
 								<Select placeholder="Select team">
-									<Option value="accountant">Accountant</Option>
-									<Option value="management">Management</Option>
-									<Option value="sales">Sales</Option>
-									<Option value="works">Works</Option>
+									<Option value="Accountant">Accountant</Option>
+									<Option value="Management">Management</Option>
+									<Option value="Sales">Sales</Option>
+									<Option value="Works">Works</Option>
 								</Select>
 							</Form.Item>
 

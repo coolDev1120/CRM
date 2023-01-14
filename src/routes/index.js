@@ -77,7 +77,8 @@ export default function Router() {
       children: [
         { element: <Navigate to="/dashboard/index" replace /> },
         { path: 'index', element: <GeneralApp /> },
-        { path: 'materials', element: <EcommerceProductList /> },
+        { path: 'materials', element: <Matrials /> },
+        { path: 'materials/add', element: <AddMatrials /> },
         { path: 'jobs', element: <Jobs /> },
         { path: 'jobs/add', element: <AddJob /> },
         { path: 'jobs/edit/:id', element: <EditJob /> },
@@ -97,7 +98,7 @@ export default function Router() {
             { element: <Navigate to="/dashboard/e-commerce/shop" replace /> },
             { path: 'shop', element: <EcommerceShop /> },
             { path: 'product/:name', element: <EcommerceProductDetails /> },
-            { path: 'list', element: <EcommerceProductList /> },
+            { path: 'list', element: <Matrials /> },
             { path: 'product/new', element: <EcommerceProductCreate /> },
             { path: 'product/:name/edit', element: <EcommerceProductCreate /> },
             { path: 'checkout', element: <EcommerceCheckout /> },
@@ -180,7 +181,8 @@ const ResetPassword = Loadable(lazy(() => import('../pages/authentication/ResetP
 const VerifyCode = Loadable(lazy(() => import('../pages/authentication/VerifyCode')));
 // Dashboard
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/GeneralApp')));
-const EcommerceProductList = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductList')));
+const Matrials = Loadable(lazy(() => import('../pages/dashboard/Matrial/index')));
+const AddMatrials = Loadable(lazy(() => import('../pages/dashboard/Matrial/Add')));
 const Jobs = Loadable(lazy(() => import('../pages/dashboard/Jobs/Jobs')));
 const AddJob = Loadable(lazy(() => import('../pages/dashboard/Jobs/Add')));
 const EditJob = Loadable(lazy(() => import('../pages/dashboard/Jobs/Edit')));

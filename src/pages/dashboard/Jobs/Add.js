@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, DatePicker, TimePicker, Checkbox, Select } from 'antd';
+import { Form, Input, DatePicker, TimePicker, Checkbox, Select, message } from 'antd';
 import { Button } from '@mui/material';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
@@ -7,20 +7,28 @@ import Stack from '@mui/material/Stack';
 import { Box, Card, Container, Typography, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
+import moment from 'moment'
 import Page from '../../../components/Page';
 
+const { TextArea } = Input;
 
 const App = () => {
     const [success, setSuccess] = useState(false);
 
     const onFinish = (values) => {
         values.email = jwt_decode(localStorage.getItem('token')).email
+        values.startdate = moment(values.startdate).format('YYYY-MM-DD')
+        values.enddate = moment(values.enddate).format('YYYY-MM-DD')
+        values.tags = JSON.stringify(values.tags)
+
         console.log('Success:', values);
         axios
             .post(`${process.env.REACT_APP_SERVER_URL}/addjobs`, values)
             .then((res) => {
+                message.config({ top: 100, duration: 5, });
                 if (res.data.flag === 'success') {
                     setSuccess(true);
+                    message.success(`You have successfully added new account.`);
                 }
             })
             .catch((err) => {
@@ -164,7 +172,7 @@ const App = () => {
                                     <Grid item xs={12} md={6} lg={3}>
                                         <Form.Item
                                             label="Time Slot"
-                                            name="startdate"
+                                            name="starttime"
                                             rules={[
                                                 {
                                                     required: true,
@@ -246,6 +254,19 @@ const App = () => {
                                 </Stack>
 
                                 <Form.Item
+                                    label="Descriptions"
+                                    name="description"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please input description!',
+                                        },
+                                    ]}
+                                >
+                                    <TextArea rows={4} />
+                                </Form.Item>
+
+                                <Form.Item
                                     label="To Address"
                                 >
                                     <Grid container spacing={3}>
@@ -315,6 +336,7 @@ const App = () => {
                                                 <Input placeholder='Referal' />
                                             </Form.Item>
                                         </Grid>
+
                                         <Grid item xs={12} md={6} lg={3}>
                                             <Form.Item
                                                 label="Responsible"
@@ -337,15 +359,9 @@ const App = () => {
                                                 valuePropName="checked"
                                             >
                                                 <Checkbox>Resin Customer</Checkbox>
-                                                {/* <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-                                                    <FormControlLabel
-                                                        sx={{ flex: '1 1 0%' }}
-                                                        control={<Checkbox />}
-                                                        label="Resin Customer"
-                                                    />
-                                                </Stack> */}
                                             </Form.Item>
                                         </Grid>
+
                                     </Grid>
                                 </Form.Item>
 
@@ -472,7 +488,7 @@ const App = () => {
                                     </Grid>
                                 </Box>
 
-                                <Form.Item
+                                {/* <Form.Item
                                     label="Responsible"
                                     name="responsible"
                                     rules={[
@@ -535,7 +551,7 @@ const App = () => {
                                     ]}
                                 >
                                     <Input />
-                                </Form.Item>
+                                </Form.Item> */}
 
                                 <Form.Item
                                     wrapperCol={{

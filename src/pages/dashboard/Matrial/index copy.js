@@ -1,9 +1,5 @@
-
-
-
-
 import React from 'react';
-import { Table, Pagination, Space, Input } from 'antd';
+import { Table, Pagination, Space, Input, Button as Button2 } from 'antd';
 import { Typography, Button } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
@@ -16,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import Page from '../../components/Page';
+import Page from '../../../components/Page';
 
 export default function EcommerceProductList() {
 	const [age, setAge] = React.useState('');
@@ -109,10 +105,10 @@ export default function EcommerceProductList() {
 
 	const itemRender = (_, type, originalElement) => {
 		if (type === 'prev') {
-			return <Button variant="contained" color="success" >Previous</Button>;
+			return <Button2 type='primary'>Previous</Button2>;
 		}
 		if (type === 'next') {
-			return <Button variant="contained" color="success"  >Next</Button>;
+			return <Button2 type='primary'>Next</Button2>;
 		}
 		return originalElement;
 	};

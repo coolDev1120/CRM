@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Pdf from 'react-to-pdf';
-import { Table, Pagination, Space, Input, Button as Button2, Popconfirm, message } from 'antd';
+import { Table, Pagination, Space, Input, Button as Button2, Popconfirm, message, Tag } from 'antd';
 import { Typography, Button } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
@@ -75,7 +75,7 @@ export default function EcommerceProductList() {
 	const [search, Setsearch] = useState('');
 	const [search2, Setsearch2] = useState('');
 	const [order, setOrder] = useState('descend');
-	const [field, setField] = useState('job_id');
+	const [field, setField] = useState('material_id');
 	const [refresh, Setrefresh] = useState(false);
 
 	const ref1 = useRef();
@@ -91,53 +91,10 @@ export default function EcommerceProductList() {
 			defaultSortOrder: 'descend',
 		},
 		{
-			title: 'JOB REF',
-			dataIndex: 'job_id',
-			sorter: (a, b) => a.name - b.name,
-			// defaultSortOrder: 'descend',
-		},
-		{
 			title: 'TITLE',
 			dataIndex: 'title',
+			sorter: (a, b) => a.name - b.name,
 			// defaultSortOrder: 'descend',
-			sorter: (a, b) => a.age - b.age,
-		},
-		{
-			title: 'CONTACT',
-			dataIndex: 'contact',
-			sorter: (a, b) => a.age - b.age,
-			render: (_, data) => (
-				<>
-					<Link to={`/dashboard/jobs/edit/${data.job_id}`}>
-						{data.contact}
-					</Link>
-				</>
-			),
-		},
-		{
-			title: 'RESPONSIBLE ',
-			dataIndex: 'responsible',
-			// defaultSortOrder: 'descend',
-			sorter: (a, b) => a.age - b.age,
-			render: (_, data) => (
-				<>
-					<Link to={`/dashboard/jobs/edit/${data.job_id}`}>
-						{data.responsible}
-					</Link>
-				</>
-			),
-		},
-		{
-			title: 'QUOTED',
-			dataIndex: 'quoted',
-			// defaultSortOrder: 'descend',
-			sorter: (a, b) => a.age - b.age,
-		},
-		{
-			title: 'START DATE',
-			dataIndex: 'startdate',
-			// defaultSortOrder: 'descend',
-			sorter: (a, b) => a.age - b.age,
 		},
 		{
 			title: 'CATEGORY',
@@ -146,34 +103,52 @@ export default function EcommerceProductList() {
 			sorter: (a, b) => a.age - b.age,
 		},
 		{
+			title: 'SUB-CATEGORY',
+			dataIndex: 'subcategory',
+			sorter: (a, b) => a.age - b.age,
+		},
+		{
+			title: 'SUB-SUB CATEGORY ',
+			dataIndex: 'subsubcategory',
+			// defaultSortOrder: 'descend',
+			sorter: (a, b) => a.age - b.age,
+		},
+		{
 			title: 'STATUS',
 			dataIndex: 'status',
+			// defaultSortOrder: 'descend',
 			sorter: (a, b) => a.age - b.age,
 		},
 		{
-			title: 'POSTCODE',
-			dataIndex: 'postcode',
+			title: 'TAGS',
+			dataIndex: 'tags',
+			// defaultSortOrder: 'descend',
 			sorter: (a, b) => a.age - b.age,
+			render: (tags) => (
+				JSON.parse(tags).map((tag, index) =>
+					<Tag key={index} color="#108ee9">{tag}</Tag>
+				)
+			)
 		},
 		{
-			title: 'EMAIL',
-			dataIndex: 'email',
+			title: 'QUANTITY',
+			dataIndex: 'quantity',
 			// defaultSortOrder: 'descend',
 			sorter: (a, b) => a.age - b.age,
 		},
 		{
 			title: 'ACTION',
 			key: 'action',
-			render: (_, job_id) => (
+			render: (_, material_id) => (
 				<Space size="middle">
-					<Link to={`/dashboard/jobs/edit/${job_id.job_id}`}>
+					<Link to={`/dashboard/material/edit/${material_id.material_id}`}>
 						<Button variant="outlined" sx={{ minWidth: '45px', padding: '5px' }}>
 							<BorderColorOutlinedIcon />
 						</Button>
 					</Link>
 					<Popconfirm
 						title="Are you sure to delete this task?"
-						onConfirm={() => confirm(job_id)}
+						onConfirm={() => confirm(material_id)}
 						okText="Yes"
 						cancelText="No"
 					>
@@ -189,9 +164,9 @@ export default function EcommerceProductList() {
 	];
 
 	const confirm = (e) => {
-		console.log(e.job_id)
+		console.log(e.material_id)
 		axios
-			.post(`${process.env.REACT_APP_SERVER_URL}/deletejobs`, { id: e.job_id })
+			.post(`${process.env.REACT_APP_SERVER_URL}/deletematerial`, { id: e.material_id })
 			.then((res) => {
 				console.log(res.data)
 				if (res.data.flag === "success") {
@@ -209,7 +184,7 @@ export default function EcommerceProductList() {
 		if (sorter.order) {
 			setOrder(sorter.order);
 			if (sorter.field === 'key') {
-				setField('job_id');
+				setField('material_id');
 			}
 			else {
 				setField(sorter.field);
@@ -218,7 +193,7 @@ export default function EcommerceProductList() {
 		}
 		else {
 			setOrder('descend');
-			setField('job_id');
+			setField('material_id');
 		}
 	};
 
@@ -246,7 +221,7 @@ export default function EcommerceProductList() {
 
 	useEffect(() => {
 		axios
-			.post(`${process.env.REACT_APP_SERVER_URL}/getjobs`, { current: current, perpage: perpage, search: search2, order: order, field: field })
+			.post(`${process.env.REACT_APP_SERVER_URL}/getmaterial`, { current: current, perpage: perpage, search: search2, order: order, field: field })
 			.then((res) => {
 				console.log(res.data.data)
 				var temp = [];
@@ -274,7 +249,7 @@ export default function EcommerceProductList() {
 
 	return (
 		<>
-			<Page title="The Yorkshire Resin Company Ltd | Live Jobs">
+			<Page title="The Yorkshire Resin Company Ltd | Matrials">
 				<Typography
 					color="text.primary"
 					sx={{
@@ -284,7 +259,7 @@ export default function EcommerceProductList() {
 						padding: '10px',
 						mb: '20px'
 					}}>
-					LIVE JOBS
+					Matrials
 				</Typography>
 
 				<Box sx={{ px: '20px' }}>
@@ -295,6 +270,44 @@ export default function EcommerceProductList() {
 								<Select
 									labelId="select-company"
 									id="company"
+									value={age}
+									label="Select Company"
+									onChange={handleChange}
+								>
+									<MenuItem value="">
+										<em>None</em>
+									</MenuItem>
+									<MenuItem value={10}>Ten</MenuItem>
+									<MenuItem value={20}>Twenty</MenuItem>
+									<MenuItem value={30}>Thirty</MenuItem>
+								</Select>
+							</FormControl>
+						</Box>
+						<Box sx={{ minWidth: 120, mr: '20px' }}>
+							<FormControl sx={{ width: '200px' }} size="small">
+								<InputLabel id="select-category">Select Category</InputLabel>
+								<Select
+									labelId="select-category"
+									id="category"
+									value={age}
+									label="Select Company"
+									onChange={handleChange}
+								>
+									<MenuItem value="">
+										<em>None</em>
+									</MenuItem>
+									<MenuItem value={10}>Ten</MenuItem>
+									<MenuItem value={20}>Twenty</MenuItem>
+									<MenuItem value={30}>Thirty</MenuItem>
+								</Select>
+							</FormControl>
+						</Box>
+						<Box sx={{ minWidth: 120, mr: '20px' }}>
+							<FormControl sx={{ width: '200px' }} size="small">
+								<InputLabel id="select-subcategory">Select Sub Category</InputLabel>
+								<Select
+									labelId="select-subcategory"
+									id="subcategory"
 									value={age}
 									label="Select Company"
 									onChange={handleChange}
@@ -361,7 +374,7 @@ export default function EcommerceProductList() {
 									</Pdf>
 								</MenuItem>
 							</StyledMenu>
-							<Link to="/dashboard/jobs/add" style={{ textDecoration: 'none' }}>
+							<Link to="/dashboard/materials/add" style={{ textDecoration: 'none' }}>
 								<Button variant="contained"> ADD </Button>
 							</Link>
 						</div>
