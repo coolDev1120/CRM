@@ -29,8 +29,9 @@
 .bg-sidebar {
     background: rgb(32, 32, 32);
 }
+
 table {
-    font-family: Public Sans,sans-serif !important;
+    font-family: Public Sans, sans-serif !important;
     text-align: center !important;
 }
 
@@ -68,4 +69,14 @@ table {
 } */
 .ant-table-pagination {
     display: none !important;
+}
+
+.ant-table-cell {
+    border-bottom: 2px solid #f0f0f0 !important;
+    border-inline-end: 2px solid #f0f0f0 !important;
+    padding: 8px 10px !important;
+}
+
+.ant-table-thead {
+    border-radius: 0 !important;
 }

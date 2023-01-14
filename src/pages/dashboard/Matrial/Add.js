@@ -420,7 +420,7 @@ const App = () => {
                                     <Button sx={{ mx: '15px' }} variant="contained" type="submit">
                                         Submit
                                     </Button>
-                                    <Link to="/dashboard/jobs" style={{ textDecoration: 'none' }}>
+                                    <Link to="/materials/jobs" style={{ textDecoration: 'none' }}>
                                         <Button variant="outlined">Cancel</Button>
                                     </Link>
                                 </Form.Item>

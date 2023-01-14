@@ -7,7 +7,7 @@ import { Table, Pagination, Space, Input, Button as Button2, Popconfirm, message
 import { Typography, Button } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
+import EditSharpIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import axios from 'axios';
 
@@ -142,9 +142,7 @@ export default function EcommerceProductList() {
 			render: (_, material_id) => (
 				<Space size="middle">
 					<Link to={`/dashboard/materials/edit/${material_id.material_id}`}>
-						<Button variant="outlined" sx={{ minWidth: '45px', padding: '5px' }}>
-							<BorderColorOutlinedIcon />
-						</Button>
+						<EditSharpIcon sx={{ color: '#768593' }} />
 					</Link>
 					<Popconfirm
 						title="Are you sure to delete this task?"
@@ -152,11 +150,9 @@ export default function EcommerceProductList() {
 						okText="Yes"
 						cancelText="No"
 					>
-						<Button variant="outlined" sx={{ minWidth: '45px', padding: '5px' }}>
-							<DeleteOutlinedIcon />
-						</Button>
+						<DeleteOutlinedIcon sx={{ color: '#768593' }} />
 					</Popconfirm>
-					<a><MoreVertOutlinedIcon sx={{ color: '#787878' }} /></a>
+					<a><MoreVertOutlinedIcon sx={{ color: '#768593' }} /></a>
 				</Space>
 			),
 		},
