@@ -1,12 +1,9 @@
 // material
-import { useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
 export default function DocIllustration({ ...other }) {
-  const theme = useTheme();
-  const PRIMARY_MAIN = theme.palette.primary.main;
 
   return (
     <Box {...other}>

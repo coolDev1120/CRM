@@ -6,7 +6,6 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { Box, Stack, Drawer, Tooltip, CardActionArea } from '@mui/material';
 // hooks
-import useAuth from '../../hooks/useAuth';
 import useCollapseDrawer from '../../hooks/useCollapseDrawer';
 // routes
 // components

@@ -2,7 +2,6 @@ import {
   Box,
   Card,
   CardContent,
-  CardHeader,
   styled,
   Typography,
 } from "@mui/material";
@@ -10,7 +9,6 @@ import {
 import ZoomOutMapSharpIcon from "@mui/icons-material/ZoomOutMapSharp";
 import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
 import ControlCameraOutlinedIcon from "@mui/icons-material/ControlCameraOutlined";
-import { ReactNode } from "react";
 
 const ActionWrapper = styled(Box) (({ theme }) => ({
   display: "flex",

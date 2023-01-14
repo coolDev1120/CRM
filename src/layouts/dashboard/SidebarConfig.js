@@ -12,7 +12,6 @@ import EmojiTransportationOutlinedIcon from "@mui/icons-material/EmojiTransporta
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // components
-import Label from '../../components/Label';
 import SvgIconStyle from '../../components/SvgIconStyle';
 
 

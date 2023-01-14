@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Typography } from '@mui/material';
 // hooks
-import useAuth from '../../../../hooks/useAuth';
 //
 import MyAvatar from '../../../MyAvatar';
 
@@ -53,7 +52,6 @@ ProfileCover.propTypes = {
 };
 
 export default function ProfileCover({ myProfile }) {
-  const { user } = useAuth();
   const { position, cover } = myProfile;
 
   return (

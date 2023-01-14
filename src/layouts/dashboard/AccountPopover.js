@@ -34,6 +34,11 @@ const MENU_OPTIONS = [
     label: 'Settings',
     icon: settings2Fill,
     linkTo: PATH_DASHBOARD.user.account
+  },
+  {
+    label: 'Tasks',
+    icon: settings2Fill,
+    linkTo: '/dashboard/task'
   }
 ];
 

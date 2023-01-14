@@ -6,11 +6,9 @@ import { Form, FormikProvider, useFormik } from 'formik';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios'
 // material
-import { Box, Grid, Card, TextField, FormControlLabel, Typography, FormHelperText } from '@mui/material';
+import { Box, Grid, Card, TextField, Typography, FormHelperText } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // hooks
-import useAuth from '../../../../hooks/useAuth';
-import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import { UploadAvatar } from '../../../upload';
 // utils
 import { fData } from '../../../../utils/formatNumber';
@@ -20,9 +18,7 @@ import { fData } from '../../../../utils/formatNumber';
 // ----------------------------------------------------------------------
 
 export default function AccountGeneral() {
-	const isMountedRef = useIsMountedRef();
 	const { enqueueSnackbar } = useSnackbar();
-	const { user, updateProfile } = useAuth();
 
 	const UpdateUserSchema = Yup.object().shape({
 		displayName: Yup.string().required('Name is required')

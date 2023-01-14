@@ -20,7 +20,6 @@ import {
   ListItemButton
 } from '@mui/material';
 // hooks
-import useAuth from '../../../hooks/useAuth';
 //
 import MyAvatar from '../../MyAvatar';
 import BadgeStatus from '../../BadgeStatus';
@@ -30,7 +29,6 @@ import BadgeStatus from '../../BadgeStatus';
 const STATUS = ['online', 'invisible', 'away'];
 
 export default function ChatAccount() {
-  const { user } = useAuth();
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('online');

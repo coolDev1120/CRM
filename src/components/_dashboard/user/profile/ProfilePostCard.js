@@ -29,7 +29,6 @@ import {
 import { fDate } from '../../../../utils/formatTime';
 import { fShortenNumber } from '../../../../utils/formatNumber';
 // hooks
-import useAuth from '../../../../hooks/useAuth';
 //
 import MyAvatar from '../../../MyAvatar';
 import EmojiPicker from '../../../EmojiPicker';
@@ -41,7 +40,6 @@ ProfilePostCard.propTypes = {
 };
 
 export default function ProfilePostCard({ post }) {
-  const { user } = useAuth();
   const commentInputRef = useRef(null);
   const fileInputRef = useRef(null);
   const [isLiked, setLiked] = useState(post.isLiked);
