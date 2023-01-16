@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Select, message, Switch } from 'antd';
 import { Button } from '@mui/material';
 import axios from 'axios';
@@ -18,21 +18,21 @@ const App = () => {
     const [form] = Form.useForm();
     const [success, setSuccess] = useState(false);
     const { id } = useParams();
-    const [data, SetData] = useState({});
 
     const onFinish = (values) => {
         values.email = jwt_decode(localStorage.getItem('token')).email
         values.responsible = JSON.stringify(values.responsible)
-        if (!values.importantce) { values.importantce = false }
+        if (!values.importance) { values.importance = false }
+        console.log(values)
 
         console.log('Success:', values);
         axios
-            .post(`${process.env.REACT_APP_SERVER_URL}/addtask`, values)
+            .post(`${process.env.REACT_APP_SERVER_URL}/edittask`, { id: id, value: values })
             .then((res) => {
                 message.config({ top: 100, duration: 5, });
                 if (res.data.flag === 'success') {
                     setSuccess(true);
-                    message.success(`You have successfully added new task.`);
+                    message.success(`You have successfully edited new task.`);
                 }
             })
     };
@@ -45,10 +45,9 @@ const App = () => {
             .post(`${process.env.REACT_APP_SERVER_URL}/gettaskByid`, { id: id })
             .then((res) => {
                 console.log(res.data.data[0])
-                SetData(res.data.data[0])
                 var input = res.data.data[0];
-                input.tags = JSON.parse(input.tags)
-                form.setFieldsValue(res.data.data[0]);
+                input.responsible = JSON.parse(input.responsible)
+                form.setFieldsValue(input);
             })
     }, []);
 
@@ -76,6 +75,7 @@ const App = () => {
                                 </Stack>
                             }
                             <Form
+                                form={form}
                                 name="basic"
                                 layout="vertical"
                                 labelCol={{
@@ -132,7 +132,7 @@ const App = () => {
                                     <Grid item xs={12} md={6} lg={6}>
                                         <Form.Item
                                             label="Task Details"
-                                            name="description"
+                                            name="taskdetail"
                                             rules={[
                                                 {
                                                     required: true,
@@ -149,7 +149,7 @@ const App = () => {
                                     <Grid item xs={12} md={6} lg={6}>
                                         <Form.Item
                                             label="When to do it?"
-                                            name="date"
+                                            name="description"
                                             rules={[
                                                 {
                                                     required: true,
@@ -199,7 +199,8 @@ const App = () => {
                                 <Form.Item
                                     layout="horizontal"
                                     label="High Importantce"
-                                    name="importantce"
+                                    name="importance"
+                                    valuePropName="checked"
                                 >
                                     <Switch
                                         checkedChildren={<CheckOutlined />}
@@ -213,7 +214,7 @@ const App = () => {
                                     <Button sx={{ mx: '15px' }} variant="contained" type="submit">
                                         Submit
                                     </Button>
-                                    <Link to="/task/jobs" style={{ textDecoration: 'none' }}>
+                                    <Link to="/dashboard/task" style={{ textDecoration: 'none' }}>
                                         <Button variant="outlined">Cancel</Button>
                                     </Link>
                                 </Form.Item>

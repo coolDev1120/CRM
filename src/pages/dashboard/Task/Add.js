@@ -197,7 +197,7 @@ const App = () => {
                                     <Button sx={{ mx: '15px' }} variant="contained" type="submit">
                                         Submit
                                     </Button>
-                                    <Link to="/task/jobs" style={{ textDecoration: 'none' }}>
+                                    <Link to="/dashboard/task" style={{ textDecoration: 'none' }}>
                                         <Button variant="outlined">Cancel</Button>
                                     </Link>
                                 </Form.Item>
