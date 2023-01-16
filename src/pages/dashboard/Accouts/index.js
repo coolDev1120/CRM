@@ -58,7 +58,7 @@ export default function EcommerceProductList() {
 
 	const renderColorCode = (params) => {
 		return (
-			<Box sx={{ px: '10px', py: '5px', background: params.row.colourCode }}></Box>
+			<Box sx={{ padding: '6px', background: params.row.colourCode, borderRadius: '100%' }}></Box>
 		)
 	}
 
@@ -66,7 +66,7 @@ export default function EcommerceProductList() {
 		{ field: 'id', headerName: 'ID', width: 30 },
 		{ field: 'username', headerName: 'Name', width: 150 },
 		{ field: 'email', headerName: 'Email', width: 250 },
-		{ field: 'colourCode', headerName: 'Colour Code', width: 200, renderCell: renderColorCode },
+		{ field: 'colourCode', headerName: 'Colour Code', width: 200, renderCell: renderColorCode, align: "center" },
 		{ field: 'staff', headerName: 'Staff', width: 150 },
 		{ field: 'permissions', headerName: 'Permissions', width: 200 },
 		{ field: 'action', headerName: 'Action', renderCell: renderDetailsButton, sortable: false, width: 200 }

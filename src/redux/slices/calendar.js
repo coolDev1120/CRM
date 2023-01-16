@@ -35,6 +35,7 @@ const slice = createSlice({
     getEventsSuccess(state, action) {
       state.isLoading = false;
       state.events = action.payload;
+      console.log(action.payload)
     },
 
     // CREATE EVENT
@@ -120,6 +121,7 @@ export function getEvents() {
         .then(data => {
           results = data;
         });
+      console.log(results.data)
       dispatch(slice.actions.getEventsSuccess(results.data));
 
     } catch (error) {
@@ -156,6 +158,8 @@ export function createEvent(newEvent) {
 // ----------------------------------------------------------------------
 
 export function updateEvent(eventId, updateEvent) {
+  console.log(eventId, updateEvent)
+
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
@@ -164,7 +168,7 @@ export function updateEvent(eventId, updateEvent) {
         updateEvent
       });
       dispatch(slice.actions.updateEventSuccess(response.data.event));
-      
+
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -176,6 +180,7 @@ export function updateEvent(eventId, updateEvent) {
         .then(data => console.log(data));
 
     } catch (error) {
+      console.log(error)
       dispatch(slice.actions.hasError(error));
     }
   };

@@ -1,15 +1,16 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState,useEffect } from 'react';
 import { Form, Input, Select, message, Switch } from 'antd';
-import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Button } from '@mui/material';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { Box, Card, Container, Typography, Grid } from '@mui/material';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { useParams } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
+import { useParams } from "react-router-dom";
 import Page from '../../../components/Page';
+const { Option } = Select;
 
 const { TextArea } = Input;
 
@@ -21,23 +22,19 @@ const App = () => {
 
     const onFinish = (values) => {
         values.email = jwt_decode(localStorage.getItem('token')).email
-        values.tags = JSON.stringify(values.tags)
-        if (!values.consumable) { values.consumable = false }
-        if (!values.vatprice) { values.vatprice = false }
+        values.responsible = JSON.stringify(values.responsible)
+        if (!values.importantce) { values.importantce = false }
 
         console.log('Success:', values);
         axios
-            .post(`${process.env.REACT_APP_SERVER_URL}/editmaterial`, { id: data.material_id, value: values })
+            .post(`${process.env.REACT_APP_SERVER_URL}/addtask`, values)
             .then((res) => {
                 message.config({ top: 100, duration: 5, });
                 if (res.data.flag === 'success') {
                     setSuccess(true);
-                    message.success(`You have successfully modified material.`);
+                    message.success(`You have successfully added new task.`);
                 }
             })
-            .catch((err) => {
-
-            });
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -45,7 +42,7 @@ const App = () => {
 
     useEffect(() => {
         axios
-            .post(`${process.env.REACT_APP_SERVER_URL}/getmaterialByid`, { id: id })
+            .post(`${process.env.REACT_APP_SERVER_URL}/gettaskByid`, { id: id })
             .then((res) => {
                 console.log(res.data.data[0])
                 SetData(res.data.data[0])
@@ -57,7 +54,7 @@ const App = () => {
 
     return (
         <>
-            <Page title="The Yorkshire Resin Company Ltd | Edit New Matrial">
+            <Page title="The Yorkshire Resin Company Ltd | Add New Task">
                 <Typography
                     color="text.primary"
                     sx={{
@@ -67,7 +64,7 @@ const App = () => {
                         padding: '10px',
                         mb: '20px'
                     }}>
-                    Edit NEW MATRIAL
+                    ADD NEW TASK
                 </Typography>
                 <Card>
                     <Box sx={{ p: { xs: 3, md: 5 } }}>
@@ -75,11 +72,10 @@ const App = () => {
                             {
                                 success &&
                                 <Stack sx={{ width: '100%', my: '15px' }} spacing={2}>
-                                    <Alert severity="success">Success. You edited job.</Alert>
+                                    <Alert severity="success">Success. You added task.</Alert>
                                 </Stack>
                             }
                             <Form
-                            form={form}
                                 name="basic"
                                 layout="vertical"
                                 labelCol={{
@@ -130,106 +126,21 @@ const App = () => {
                                             />
                                         </Form.Item>
                                     </Grid>
-                                    <Grid item xs={12} md={6} lg={3}>
+                                </Grid>
+
+                                <Grid container spacing={3}>
+                                    <Grid item xs={12} md={6} lg={6}>
                                         <Form.Item
-                                            name="category"
+                                            label="Task Details"
+                                            name="description"
                                             rules={[
                                                 {
                                                     required: true,
-                                                    message: 'Please input category!',
+                                                    message: 'Please input detail!',
                                                 },
                                             ]}
                                         >
-                                            <Select
-                                                showSearch
-                                                placeholder="Select Category"
-                                                optionFilterProp="children"
-                                                filterOption={(input, option) =>
-                                                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                                                }
-                                                options={[
-                                                    {
-                                                        value: 'jack',
-                                                        label: 'Jack',
-                                                    },
-                                                    {
-                                                        value: 'lucy',
-                                                        label: 'Lucy',
-                                                    },
-                                                    {
-                                                        value: 'tom',
-                                                        label: 'Tom',
-                                                    },
-                                                ]}
-                                            />
-                                        </Form.Item>
-                                    </Grid>
-                                    <Grid item xs={12} md={6} lg={3}>
-                                        <Form.Item
-                                            name="subcategory"
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: 'Please input sub-category!',
-                                                },
-                                            ]}
-                                        >
-                                            <Select
-                                                showSearch
-                                                placeholder="Select sub-category"
-                                                optionFilterProp="children"
-                                                filterOption={(input, option) =>
-                                                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                                                }
-                                                options={[
-                                                    {
-                                                        value: 'jack',
-                                                        label: 'Jack',
-                                                    },
-                                                    {
-                                                        value: 'lucy',
-                                                        label: 'Lucy',
-                                                    },
-                                                    {
-                                                        value: 'tom',
-                                                        label: 'Tom',
-                                                    },
-                                                ]}
-                                            />
-                                        </Form.Item>
-                                    </Grid>
-                                    <Grid item xs={12} md={6} lg={3}>
-                                        <Form.Item
-                                            name="subsubcategory"
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: 'Please input sub-sub-category!',
-                                                },
-                                            ]}
-                                        >
-                                            <Select
-                                                showSearch
-                                                placeholder="Select sub-sub-category"
-                                                optionFilterProp="children"
-                                                filterOption={(input, option) =>
-                                                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                                                }
-                                                options={[
-                                                    {
-                                                        value: 'jack',
-                                                        label: 'Jack',
-                                                    },
-                                                    {
-                                                        value: 'lucy',
-                                                        label: 'Lucy',
-                                                    },
-                                                    {
-                                                        value: 'tom',
-                                                        label: 'Tom',
-                                                    },
-                                                ]}
-                                            />
+                                            <Input />
                                         </Form.Item>
                                     </Grid>
                                 </Grid>
@@ -237,207 +148,72 @@ const App = () => {
                                 <Grid container spacing={3}>
                                     <Grid item xs={12} md={6} lg={6}>
                                         <Form.Item
-                                            label="Title"
-                                            name="title"
+                                            label="When to do it?"
+                                            name="date"
                                             rules={[
                                                 {
                                                     required: true,
-                                                    message: 'Please input your title!',
+                                                    message: 'Please input description!',
                                                 },
                                             ]}
                                         >
-                                            <Input />
+                                            <TextArea rows={4} />
                                         </Form.Item>
                                     </Grid>
-                                    <Grid item xs={12} md={6} lg={3}>
+                                </Grid>
+
+                                <Grid container spacing={3}>
+                                    <Grid item xs={12} md={6} lg={6}>
                                         <Form.Item
-                                            label="Tags"
-                                            name="tags"
+                                            label="Responsible (Select all / Select none)"
+                                            name="responsible"
                                             rules={[
                                                 {
                                                     required: true,
-                                                    message: 'Please input tags!',
+                                                    message: 'Please input responsible!',
                                                 },
                                             ]}
                                         >
                                             <Select
-                                                mode="tags"
-                                                size="middle"
-                                                placeholder="Please select"
+                                                mode="multiple"
                                                 style={{
                                                     width: '100%',
                                                 }}
-                                            />
-                                        </Form.Item>
-                                    </Grid>
-                                    <Grid item xs={12} md={6} lg={3}>
-                                        <Form.Item
-                                            label="Consumable"
-                                            name="consumable"
-                                            valuePropName="checked"
-                                        >
-                                            <Switch
-                                                checkedChildren={<CheckOutlined />}
-                                                unCheckedChildren={<CloseOutlined />}
-                                            />
+                                                placeholder="Select"
+                                                optionLabelProp="label"
+                                            >
+                                                <Option value="Astjin">
+                                                    Astjin
+                                                </Option>
+                                                <Option value="Michale">
+                                                    Michale
+                                                </Option>
+                                                <Option value="Jhon">
+                                                    Jhon
+                                                </Option>
+                                            </Select>
                                         </Form.Item>
                                     </Grid>
                                 </Grid>
 
                                 <Form.Item
-                                    label="Descriptions"
-                                    name="description"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input description!',
-                                        },
-                                    ]}
+                                    layout="horizontal"
+                                    label="High Importantce"
+                                    name="importantce"
                                 >
-                                    <TextArea rows={4} />
+                                    <Switch
+                                        checkedChildren={<CheckOutlined />}
+                                        unCheckedChildren={<CloseOutlined />}
+                                    />
                                 </Form.Item>
 
                                 <Form.Item
-                                    label="To Address"
-                                >
-                                    <Grid container spacing={3}>
-                                        <Grid item xs={12} md={6} lg={6}>
-                                            <Form.Item
-                                                label="Quantity"
-                                                name="quantity"
-                                                rules={[
-                                                    {
-                                                        required: true,
-                                                        message: 'Please input quantity!',
-                                                    },
-                                                ]}
-                                            >
-                                                <Input />
-                                            </Form.Item>
-                                        </Grid>
-                                        <Grid item xs={12} md={6} lg={6}>
-                                            <Form.Item
-                                                label="Minimum quantity"
-                                                name="mquantity"
-                                                rules={[
-                                                    {
-                                                        required: true,
-                                                        message: 'Please input minimum  quantity!',
-                                                    },
-                                                ]}
-                                            >
-                                                <Input />
-                                            </Form.Item>
-                                        </Grid>
-                                    </Grid>
-                                </Form.Item>
-
-                                <Box sx={{ background: '#F3F1EB', padding: '25px', mx: '-25px', mb: '20px' }}>
-                                    <Grid container spacing={3}>
-                                        <Grid item xs={12} md={6} lg={3}>
-                                            <Form.Item
-                                                label="Purchase Price"
-                                            >
-                                                <Input value='BRITISH POUND' />
-                                            </Form.Item>
-                                        </Grid>
-                                        <Grid item xs={12} md={6} lg={3}>
-                                            <Form.Item
-                                                label=" "
-                                                name="purchaseprice"
-                                                rules={[
-                                                    {
-                                                        required: true,
-                                                        message: 'Please input price!',
-                                                    },
-                                                ]}
-                                            >
-                                                <Input placeholder='ENTER PRICE' />
-                                            </Form.Item>
-                                        </Grid>
-                                    </Grid>
-
-                                    <Form.Item
-                                        label="Purchase Price inc VAT"
-                                        name="vatprice"
-                                        valuePropName="checked"
-                                    >
-                                        <Switch
-                                            checkedChildren={<CheckOutlined />}
-                                            unCheckedChildren={<CloseOutlined />}
-                                        />
-                                    </Form.Item>
-
-                                    <Grid container spacing={3}>
-                                        <Grid item xs={12} md={6} lg={3}>
-                                            <Form.Item
-                                                label="Sale Price"
-                                            >
-                                                <Input value='BRITISH POUND' />
-                                            </Form.Item>
-                                        </Grid>
-                                        <Grid item xs={12} md={6} lg={3}>
-                                            <Form.Item
-                                                label=" "
-                                                name="saleprice"
-                                                rules={[
-                                                    {
-                                                        required: true,
-                                                        message: 'Please input sale price!',
-                                                    },
-                                                ]}
-                                            >
-                                                <Input placeholder='ENTER PRICE' />
-                                            </Form.Item>
-                                        </Grid>
-                                    </Grid>
-
-                                    <Grid container spacing={3}>
-                                        <Grid item xs={12} md={6} lg={3}>
-                                            <Form.Item
-                                                label="Contact Details"
-                                                name="contactdetail"
-                                                rules={[
-                                                    {
-                                                        required: true,
-                                                        message: 'Please input contact detail!',
-                                                    },
-                                                ]}
-                                            >
-                                                <Input />
-                                            </Form.Item>
-                                        </Grid>
-                                    </Grid>
-
-                                    <Grid container spacing={3}>
-                                        <Grid item xs={12} md={6} lg={3}>
-                                            <Form.Item
-                                                label="Individuals"
-                                                name="individual"
-                                                rules={[
-                                                    {
-                                                        required: true,
-                                                        message: 'Please input individuals!',
-                                                    },
-                                                ]}
-                                            >
-                                                <Input />
-                                            </Form.Item>
-                                        </Grid>
-                                    </Grid>
-                                </Box>
-
-                                <Form.Item
-                                    wrapperCol={{
-                                        offset: 8,
-                                        span: 16
-                                    }}
-                                    style={{ textAlign: 'right' }}
+                                    style={{ textAlign: 'left' }}
                                 >
                                     <Button sx={{ mx: '15px' }} variant="contained" type="submit">
                                         Submit
                                     </Button>
-                                    <Link to="/dashboard/materials" style={{ textDecoration: 'none' }}>
+                                    <Link to="/task/jobs" style={{ textDecoration: 'none' }}>
                                         <Button variant="outlined">Cancel</Button>
                                     </Link>
                                 </Form.Item>
