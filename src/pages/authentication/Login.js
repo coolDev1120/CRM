@@ -101,23 +101,6 @@ export default function Login() {
           </ContentStyle>
         </Container>
       </RootStyle>
-
-      {/* <Stack direction="row" alignItems="center" sx={{ width: '100%', my: '15px', WebkitJustifyContent: 'center' }} spacing={2}>
-        <img
-          alt="btm logo 1"
-          src="/static/auth/btm_1.png"
-          width={120}
-          height={120}
-        />
-
-        <img
-          alt="btm logo 2"
-          src="/static/auth/btm_2.png"
-          width={190}
-          height={95}
-          style={{ paddingLeft: "40px" }}
-        />
-      </Stack> */}
     </>
   );
 }

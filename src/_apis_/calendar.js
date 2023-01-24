@@ -9,7 +9,7 @@ import mock from './mock';
 // ----------------------------------------------------------------------
 
 const COLOR_OPTIONS = [
-  '#00AB55', // theme.palette.primary.main,
+  '#796621', // theme.palette.primary.main,
   '#1890FF', // theme.palette.info.main,
   '#94D82D', // theme.palette.success.main,
   '#FFC107', // theme.palette.warning.main,

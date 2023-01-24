@@ -167,7 +167,7 @@ export default function EcommerceProductList() {
 			render: (_, job_id) => (
 				<Space size="middle">
 					<Link to={`/dashboard/jobs/edit/${job_id.job_id}`}>
-						<EditSharpIcon  sx={{ color: '#768593' }} />
+						<EditSharpIcon sx={{ color: '#768593' }} />
 					</Link>
 					<Popconfirm
 						title="Are you sure to delete this task?"
@@ -175,7 +175,7 @@ export default function EcommerceProductList() {
 						okText="Yes"
 						cancelText="No"
 					>
-						<DeleteOutlinedIcon  sx={{ color: '#768593' }} />
+						<DeleteOutlinedIcon sx={{ color: '#768593' }} />
 					</Popconfirm>
 					<a><MoreVertOutlinedIcon sx={{ color: '#768593' }} /></a>
 				</Space>
@@ -369,7 +369,7 @@ export default function EcommerceProductList() {
 				<Pagination
 					onChange={onPageChange}
 					total={total}
-					itemRender={itemRender}
+					// itemRender={itemRender}
 					pageSize={perpage}
 					style={{ marginTop: '20px', textAlign: 'right' }} />
 			</Page>

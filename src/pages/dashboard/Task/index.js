@@ -394,7 +394,7 @@ export default function EcommerceProductList() {
 				<Pagination
 					onChange={onPageChange}
 					total={total}
-					itemRender={itemRender}
+					// itemRender={itemRender}
 					pageSize={perpage}
 					style={{ marginTop: '20px', textAlign: 'right' }} />
 			</Page>

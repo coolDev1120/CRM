@@ -116,17 +116,15 @@ export default function EcommerceProductList() {
 		{
 			title: 'STATUS',
 			dataIndex: 'status',
-			// defaultSortOrder: 'descend',
 			sorter: (a, b) => a.age - b.age,
 		},
 		{
 			title: 'TAGS',
 			dataIndex: 'tags',
-			// defaultSortOrder: 'descend',
 			sorter: (a, b) => a.age - b.age,
 			render: (tags) => (
 				JSON.parse(tags).map((tag, index) =>
-					<Tag key={index} color="#108ee9">{tag}</Tag>
+					<Tag style={{marginTop:'5px'}} key={index} color="#108ee9">{tag}</Tag>
 				)
 			)
 		},
@@ -382,7 +380,7 @@ export default function EcommerceProductList() {
 				<Pagination
 					onChange={onPageChange}
 					total={total}
-					itemRender={itemRender}
+					// itemRender={itemRender}
 					pageSize={perpage}
 					style={{ marginTop: '20px', textAlign: 'right' }} />
 			</Page>

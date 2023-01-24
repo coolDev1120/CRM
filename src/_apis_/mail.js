@@ -65,7 +65,7 @@ const labels = [
     type: 'custom',
     name: 'social',
     unreadCount: 0,
-    color: '#00AB55'
+    color: '#796621'
   },
   {
     id: 'id_promotions',

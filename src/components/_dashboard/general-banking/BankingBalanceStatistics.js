@@ -3,7 +3,7 @@ import ReactApexChart from 'react-apexcharts';
 // material
 import { Box } from '@mui/material';
 //
-import { BaseOptionChart } from '../../charts';
+// import { BaseOptionChart } from '../../charts';
 
 // ----------------------------------------------------------------------
 
@@ -18,21 +18,25 @@ const CHART_DATA = [
 ];
 
 export default function BankingBalanceStatistics() {
-  const chartOptions = merge(BaseOptionChart(), {
-    stroke: {
-      show: true,
-      width: 2,
-      colors: ['transparent']
-    },
-    xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
-    },
-    tooltip: {
-      y: {
-        formatter: (val) => `$${val}`
+  const chartOptions = merge(
+    // BaseOptionChart(),
+    {
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ['transparent'],
+      },
+      xaxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
+      },
+      colors:['#796621', '#FFE700', '#9C27B0'],
+      tooltip: {
+        y: {
+          formatter: (val) => `$${val}`
+        }
       }
-    }
-  });
+    });
+  console.log(chartOptions)
 
   return (
     <>
