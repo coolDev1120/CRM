@@ -4,18 +4,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Pdf from 'react-to-pdf';
 import { Table, Pagination, Space, Input, Button as Button2, Popconfirm, message, Tag } from 'antd';
-import { Typography, Button } from '@mui/material';
-import Divider from '@mui/material/Divider';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditSharpIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import axios from 'axios';
 
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { TableContainer, Select, FormControl, MenuItem, InputLabel, Box, Divider, Typography, Button } from '@mui/material'
 import moment from 'moment'
 import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
@@ -124,7 +118,7 @@ export default function EcommerceProductList() {
 			sorter: (a, b) => a.age - b.age,
 			render: (tags) => (
 				JSON.parse(tags).map((tag, index) =>
-					<Tag style={{marginTop:'5px'}} key={index} color="#108ee9">{tag}</Tag>
+					<Tag style={{ marginTop: '5px' }} key={index} color="#108ee9">{tag}</Tag>
 				)
 			)
 		},
@@ -257,8 +251,8 @@ export default function EcommerceProductList() {
 				</Typography>
 
 				<Box sx={{ px: '20px' }}>
-					<div style={{ display: 'flex', marginBottom: '15px' }}>
-						<Box sx={{ minWidth: 120, mr: '20px' }}>
+					<Box className='select-toolbar'>
+						<Box className='item' >
 							<FormControl sx={{ width: '200px' }} size="small">
 								<InputLabel id="select-company">Select Company</InputLabel>
 								<Select
@@ -277,14 +271,14 @@ export default function EcommerceProductList() {
 								</Select>
 							</FormControl>
 						</Box>
-						<Box sx={{ minWidth: 120, mr: '20px' }}>
+						<Box className='item' >
 							<FormControl sx={{ width: '200px' }} size="small">
 								<InputLabel id="select-category">Select Category</InputLabel>
 								<Select
 									labelId="select-category"
 									id="category"
 									value={age}
-									label="Select Company"
+									label="select-category"
 									onChange={handleChange}
 								>
 									<MenuItem value="">
@@ -296,14 +290,14 @@ export default function EcommerceProductList() {
 								</Select>
 							</FormControl>
 						</Box>
-						<Box sx={{ minWidth: 120, mr: '20px' }}>
+						<Box className='item' >
 							<FormControl sx={{ width: '200px' }} size="small">
 								<InputLabel id="select-subcategory">Select Sub Category</InputLabel>
 								<Select
 									labelId="select-subcategory"
 									id="subcategory"
 									value={age}
-									label="Select Company"
+									label="select-subcategory"
 									onChange={handleChange}
 								>
 									<MenuItem value="">
@@ -315,11 +309,11 @@ export default function EcommerceProductList() {
 								</Select>
 							</FormControl>
 						</Box>
-					</div>
+					</Box>
 
 					<Divider />
 
-					<div style={{ marginTop: '20px', marginBottom: '20px', display: 'flex' }}>
+					<Box className='toolbar'>
 						<FormControl sx={{ width: '100px' }} size="small">
 							<InputLabel id="select-subcategory"></InputLabel>
 							<Select
@@ -372,10 +366,10 @@ export default function EcommerceProductList() {
 								<Button variant="contained"> ADD </Button>
 							</Link>
 						</div>
-					</div>
+					</Box>
 				</Box>
-				<Box ref={ref1}>
-					<Table bordered='true' columns={columns} dataSource={data} onChange={onChange} />
+				<Box >
+					<Table className='table-scroll' bordered='true' columns={columns} dataSource={data} onChange={onChange} />
 				</Box>
 				<Pagination
 					onChange={onPageChange}

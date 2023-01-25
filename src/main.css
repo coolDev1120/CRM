@@ -1,7 +1,3 @@
-.css-jjtu05 {
-    /* background: rgb(32, 32, 32); */
-}
-
 .sidebar .css-vt7cuc-MuiListItemText-root {
     color: #fff !important;
 }
@@ -10,9 +6,6 @@
     color: #fff !important;
 }
 
-.css-47ifef-MuiToolbar-root {
-    /* background: rgb(138, 118, 49); */
-}
 
 .color-white {
     color: white !important;
@@ -35,38 +28,15 @@ table {
     text-align: center !important;
 }
 
-/* .css-6494io-MuiButtonBase-root-MuiListItemButton-root {
-    background-color: rgb(138 118 49) !important;
-} */
-
-/* .css-6494io-MuiButtonBase-root-MuiListItemButton-root:before {
-    background-color: #8a7631 !important;
-} */
-
 .css-9w714p {
     display: none !important;
 }
+
 /* color seting */
 .css-26q4qm {
     max-width: 870px !important;
 }
 
-/* .css-q2v5of-MuiButtonBase-root-MuiCheckbox-root.Mui-checked,
-.css-q2v5of-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
-    color: #9B7E4A !important;
-} */
-
-/* .css-qw6s9w-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root:hover {
-    background-color: #8a7631 !important;
-} */
-
-/* .css-n26ql7-MuiInputBase-input-MuiOutlinedInput-input:active {
-    border-color: #8a7631 !important;
-} */
-
-/* .css-16of2a1-MuiButtonBase-root-MuiButton-root:hover {
-    background-color: #796621 !important;
-} */
 .ant-table-pagination {
     display: none !important;
 }
@@ -79,4 +49,56 @@ table {
 
 .ant-table-thead {
     border-radius: 0 !important;
+}
+
+.table-scroll {
+    width: 100%;
+    overflow-x: scroll;
+
+}
+
+.table-scroll::-webkit-scrollbar {
+    height: 8px;
+    transition: 0.5s;
+}
+
+.table-scroll::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(250, 250, 250, 0.3);
+}
+
+.table-scroll::-webkit-scrollbar-thumb {
+    background: #fafafa46;
+    background: #ffffff85;
+    border-radius: 6px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #796610 !important;
+}
+
+.toolbar {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+@media screen and (max-width: 570px) {
+    .toolbar {
+        display: inline-block;
+    }
+}
+
+.select-toolbar {
+    display: flex;
+}
+
+.select-toolbar .item{
+    min-width: 120px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+@media screen and (max-width: 660px) {
+    .select-toolbar {
+        display: block;
+    }
 }

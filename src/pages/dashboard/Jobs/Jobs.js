@@ -308,7 +308,7 @@ export default function EcommerceProductList() {
 
 					<Divider />
 
-					<div style={{ marginTop: '20px', marginBottom: '20px', display: 'flex' }}>
+					<Box className='toolbar'>
 						<FormControl sx={{ width: '100px' }} size="small">
 							<InputLabel id="select-subcategory"></InputLabel>
 							<Select
@@ -361,12 +361,13 @@ export default function EcommerceProductList() {
 								<Button variant="contained"> ADD </Button>
 							</Link>
 						</div>
-					</div>
+					</Box>
 				</Box>
 				<Box ref={ref1}>
-					<Table bordered='true' columns={columns} dataSource={data} onChange={onChange} />
+					<Table className='table-scroll' bordered='true' columns={columns} dataSource={data} onChange={onChange} />
 				</Box>
 				<Pagination
+					defaultCurrent={1}
 					onChange={onPageChange}
 					total={total}
 					// itemRender={itemRender}

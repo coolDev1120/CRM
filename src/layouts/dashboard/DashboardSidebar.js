@@ -127,7 +127,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
         </Stack>
       </Stack>
 
-      <img style={{ padding: '10px' }} src='/static/mock-images/products/logo.webp' />
+      <img style={{ padding: '10px', background: '#202020' }} src='/static/mock-images/products/logo.webp' />
 
       <NavSection
         sx={{ background: 'rgb(32, 32, 32)', color: '#fff' }}
