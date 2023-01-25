@@ -23,7 +23,7 @@ const ActionWrapper = styled(Box) (({ theme }) => ({
 
 const CardProject = ({ title, children, full }) => {
   return (
-    <Card sx={{ minWidth: 520, width: `${full ? 100 : 100}%` }}>
+    <Card>
       <Box
         sx={{
           padding: "10px 20px",

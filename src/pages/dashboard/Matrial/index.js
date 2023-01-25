@@ -8,8 +8,9 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditSharpIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import axios from 'axios';
+import { useTheme } from '@mui/material/styles';
 
-import { TableContainer, Select, FormControl, MenuItem, InputLabel, Box, Divider, Typography, Button } from '@mui/material'
+import { Select, FormControl, MenuItem, InputLabel, Box, Divider, Typography, Button } from '@mui/material'
 import moment from 'moment'
 import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
@@ -61,6 +62,9 @@ const StyledMenu = styled((props) => (
 
 
 export default function EcommerceProductList() {
+	const theme = useTheme();
+	const PRIMARY_MAIN = theme.palette.primary.main;
+
 	const [age, setAge] = React.useState('');
 	const [data, setData] = useState([]);
 	const [perpage, setPerpage] = useState(10);
@@ -118,7 +122,7 @@ export default function EcommerceProductList() {
 			sorter: (a, b) => a.age - b.age,
 			render: (tags) => (
 				JSON.parse(tags).map((tag, index) =>
-					<Tag style={{ marginTop: '5px' }} key={index} color="#108ee9">{tag}</Tag>
+					<Tag style={{ marginTop: '5px' }} key={index} color={PRIMARY_MAIN}>{tag}</Tag>
 				)
 			)
 		},

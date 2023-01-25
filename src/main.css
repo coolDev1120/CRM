@@ -6,6 +6,9 @@
     color: #fff !important;
 }
 
+.sidebar {
+    background: #202020;
+}
 
 .color-white {
     color: white !important;
@@ -92,11 +95,12 @@ table {
     display: flex;
 }
 
-.select-toolbar .item{
+.select-toolbar .item {
     min-width: 120px;
     margin-right: 20px;
     margin-bottom: 10px;
 }
+
 @media screen and (max-width: 660px) {
     .select-toolbar {
         display: block;

@@ -216,12 +216,10 @@ export default function GeneralApp() {
           <Grid container spacing={3}>
             <Grid item lg={3} md={6} xs={12}>
               <Card sx={{ display: 'flex', alignItems: 'center', p: 3, color: '#fff', background: PRIMARY_MAIN }}>
-
                 <Box sx={{ flexGrow: 1 }}>
                   <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
                     <PersonAddAltRoundedIcon sx={{ fontSize: '70px' }} />
                   </Stack>
-
                   <Typography variant="subtitle2" sx={{ fontSize: '23px' }}>
                     Open Projects
                   </Typography>
