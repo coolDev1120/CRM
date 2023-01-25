@@ -3,8 +3,10 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Icon } from '@iconify/react';
 import { useFormik, Form, FormikProvider } from 'formik';
+import { message } from 'antd'
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
+import { useNavigate } from 'react-router-dom';
 // material
 import { Stack, TextField, IconButton, InputAdornment, Alert } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
@@ -13,13 +15,14 @@ import { LoadingButton } from '@mui/lab';
 // ----------------------------------------------------------------------
 
 export default function RegisterForm() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const RegisterSchema = Yup.object().shape({
     firstName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('First name required'),
     lastName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Last name required'),
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required')
+    password: Yup.string().min(5, 'Too Short!').required('Password is required')
   });
 
   const formik = useFormik({
@@ -43,7 +46,11 @@ export default function RegisterForm() {
         })
         .then((res) => {
           if (res.data.flag === 'success') {
-            setErrors({ afterSubmit: 'success' });
+            message.config({ top: 100, duration: 5, });
+            message.success('You have successfully registered.');
+            setTimeout(() => {
+              navigate('/auth/login')
+            }, 500);
           }
         })
         .catch((err) => {

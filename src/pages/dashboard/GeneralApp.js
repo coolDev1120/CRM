@@ -9,7 +9,6 @@ import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import CreditCardRoundedIcon from '@mui/icons-material/CreditCardRounded';
 import WorkOutlineRoundedIcon from '@mui/icons-material/WorkOutlineRounded';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
-import { styled, alpha } from '@mui/material/styles';
 
 // eslint-disable-next-line import/no-duplicates
 import useSettings from '../../hooks/useSettings';
@@ -109,7 +108,7 @@ export default function GeneralApp() {
         />
       ),
       action: (
-        <Button variant="contained" sx={{ backgroundColor: "#9B7E4A" }}>
+        <Button variant="contained">
           Progressing
         </Button>
       ),

@@ -29,14 +29,13 @@ export default function BankingBalanceStatistics() {
       xaxis: {
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
       },
-      colors:['#796621', '#FFE700', '#9C27B0'],
+      colors: ['#796621', '#FFE700', '#9C27B0'],
       tooltip: {
         y: {
           formatter: (val) => `$${val}`
         }
       }
     });
-  console.log(chartOptions)
 
   return (
     <>

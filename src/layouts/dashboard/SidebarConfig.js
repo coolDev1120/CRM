@@ -60,17 +60,17 @@ const sidebarConfig = [
       },
       {
         title: "Enquiries",
-        path: PATH_DASHBOARD.general.index,
+        path: '/dashboard/calendar',
         icon: <QuestionAnswerOutlinedIcon />,
       },
       {
         title: "Maps",
-        path: PATH_DASHBOARD.general.index,
+        path: '/dashboard/calendar',
         icon: <LocationOnIcon />,
       },
       {
         title: "Finance",
-        path: PATH_DASHBOARD.general.index,
+        path: '/dashboard/calendar',
         icon: <MonetizationOnIcon />,
       },
       {
@@ -80,32 +80,32 @@ const sidebarConfig = [
       },
       {
         title: "Documents",
-        path: PATH_DASHBOARD.general.index,
+        path: '/dashboard/calendar',
         icon: <DescriptionOutlinedIcon />,
       },
       {
         title: "Snagging",
-        path: PATH_DASHBOARD.general.index,
+        path: '/dashboard/calendar',
         icon: <DescriptionOutlinedIcon />,
       },
       {
         title: "Annual Power",
-        path: PATH_DASHBOARD.general.index,
+        path: '/dashboard/calendar',
         icon: <CalendarTodayOutlinedIcon />,
       },
       {
         title: "Assets Management",
-        path: PATH_DASHBOARD.general.index,
+        path: '/dashboard/calendar',
         icon: <EmojiTransportationOutlinedIcon />,
       },
       {
         title: "Staff",
-        path: PATH_DASHBOARD.general.index,
+        path: '/dashboard/calendar',
         icon: <GroupsIcon />,
       },
       {
         title: "Template",
-        path: PATH_DASHBOARD.general.index,
+        path: '/dashboard/calendar',
         icon: <PhotoSizeSelectLargeOutlinedIcon />,
       },
       // { title: 'calendar', path: PATH_DASHBOARD.calendar, icon: ICONS.calendar },

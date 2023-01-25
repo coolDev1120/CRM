@@ -101,27 +101,27 @@ export default function Settings() {
 
           <Scrollbar sx={{ height: 1 }}>
             <Stack spacing={4} sx={{ pt: 3, px: 3, pb: 15 }}>
-              <Stack spacing={1.5}>
+              {/* <Stack spacing={1.5}>
                 <Typography variant="subtitle2">Mode</Typography>
                 <SettingMode />
-              </Stack>
+              </Stack> */}
 
-              <Stack spacing={1.5}>
+              {/* <Stack spacing={1.5}>
                 <Typography variant="subtitle2">Direction</Typography>
                 <SettingDirection />
-              </Stack>
+              </Stack> */}
 
               <Stack spacing={1.5}>
                 <Typography variant="subtitle2">Color</Typography>
                 <SettingColor />
               </Stack>
 
-              <Stack spacing={1.5}>
+              {/* <Stack spacing={1.5}>
                 <Typography variant="subtitle2">Stretch</Typography>
                 <SettingStretch />
               </Stack>
 
-              <SettingFullscreen />
+              <SettingFullscreen /> */}
             </Stack>
           </Scrollbar>
         </Paper>
