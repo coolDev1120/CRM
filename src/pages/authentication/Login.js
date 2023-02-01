@@ -2,18 +2,16 @@
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
-import { Box, Card, Stack, Link, Container, Typography, Button } from '@mui/material';
+import { Box, Card, Stack, Link, Container, Typography } from '@mui/material';
 // routes
 import { PATH_AUTH } from '../../routes/paths';
 // hooks
-import useAuth from '../../hooks/useAuth';
 // layouts
 import AuthLayout from '../../layouts/AuthLayout';
 // components
 import Page from '../../components/Page';
 import { MHidden } from '../../components/@material-extend';
 import { LoginForm } from '../../components/authentication/login';
-import AuthFirebaseSocials from '../../components/authentication/AuthFirebaseSocial';
 
 // ----------------------------------------------------------------------
 
@@ -36,15 +34,6 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Login() {
-  const { method, login } = useAuth();
-
-  const handleLoginAuth0 = async () => {
-    try {
-      await login();
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <>
@@ -72,15 +61,7 @@ export default function Login() {
                   </Box>
                 </Stack>
 
-                {method === 'firebase' && <AuthFirebaseSocials />}
-
-                {method !== 'auth0' ? (
-                  <LoginForm />
-                ) : (
-                  <Button fullWidth size="large" type="submit" variant="contained" onClick={handleLoginAuth0} sx={{ backgroundColor: "#9B7E4A" }}>
-                    Login
-                  </Button>
-                )}
+                <LoginForm />
 
                 <Box sx={{ align: 'center', mt: '15px' }}>
                   <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword} sx={{ color: "#9B7E4A" }}>

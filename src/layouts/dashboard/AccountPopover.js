@@ -16,6 +16,7 @@ import { PATH_DASHBOARD } from '../../routes/paths';
 import { MIconButton } from '../../components/@material-extend';
 import MyAvatar from '../../components/MyAvatar';
 import MenuPopover from '../../components/MenuPopover';
+import { useNavigate } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
@@ -45,6 +46,7 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const navigate = useNavigate();
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
 
@@ -58,7 +60,7 @@ export default function AccountPopover() {
   const handleLogout = async () => {
     localStorage.removeItem('token');
     // eslint-disable-next-line no-restricted-globals
-    location.reload();
+    navigate('/auth/login')
   };
 
   return (

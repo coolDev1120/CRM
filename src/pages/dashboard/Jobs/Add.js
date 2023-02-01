@@ -17,7 +17,7 @@ const App = () => {
 
     const onFinish = (values) => {
         values.email = jwt_decode(localStorage.getItem('token')).email
-        values.startdate = moment(values.startdate).format('YYYY-MM-DD')
+        // values.startdate = moment(values.startdate).format('YYYY-MM-DD')
         values.enddate = moment(values.enddate).format('YYYY-MM-DD')
         values.tags = JSON.stringify(values.tags)
 
@@ -28,7 +28,7 @@ const App = () => {
                 message.config({ top: 100, duration: 5, });
                 if (res.data.flag === 'success') {
                     setSuccess(true);
-                    message.success(`You have successfully added new account.`);
+                    message.success(`You have successfully added new job.`);
                 }
             })
             .catch((err) => {

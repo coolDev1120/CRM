@@ -47,13 +47,12 @@ const App = () => {
         axios
             .post(`${process.env.REACT_APP_SERVER_URL}/getjobByid`, { id: id })
             .then((res) => {
-                console.log(res.data.data[0])
                 SetData(res.data.data[0])
                 var input = res.data.data[0];
                 input.startdate = moment(input.startdate)
                 input.enddate = moment(input.enddate)
                 input.starttime = moment(input.starttime)
-                input.tags = JSON.parse(input.tags) 
+                input.tags = JSON.parse(input.tags)
                 form.setFieldsValue(res.data.data[0]);
             })
             .catch((err) => {
@@ -176,7 +175,6 @@ const App = () => {
                                         </Form.Item>
                                     </Grid>
                                 </Grid>
-
                                 <Grid container spacing={3}>
                                     <Grid item xs={12} md={6} lg={3}>
                                         <Form.Item

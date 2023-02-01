@@ -4,7 +4,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { Box, Card, Link, Container, Typography } from '@mui/material';
 // hooks
-import useAuth from '../../hooks/useAuth';
 // routes
 import { PATH_AUTH } from '../../routes/paths';
 // layouts
@@ -13,7 +12,6 @@ import AuthLayout from '../../layouts/AuthLayout';
 import Page from '../../components/Page';
 import { MHidden } from '../../components/@material-extend';
 import { RegisterForm } from '../../components/authentication/register';
-import AuthFirebaseSocials from '../../components/authentication/AuthFirebaseSocial';
 
 // ----------------------------------------------------------------------
 
@@ -36,7 +34,6 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Register() {
-  const { method } = useAuth();
 
   return (
     <RootStyle title="Register" sx={{ background: '#bda06c' }}>
@@ -59,8 +56,6 @@ export default function Register() {
                   </Typography>
                 </Box>
               </Box>
-
-              {method === 'firebase' && <AuthFirebaseSocials />}
 
               <RegisterForm />
 

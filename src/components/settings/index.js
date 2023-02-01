@@ -7,11 +7,11 @@ import { Box, Backdrop, Paper, Tooltip, Divider, Typography, Stack } from '@mui/
 //
 import Scrollbar from '../Scrollbar';
 import { MIconButton } from '../@material-extend';
-import SettingMode from './SettingMode';
+// import SettingMode from './SettingMode';
 import SettingColor from './SettingColor';
-import SettingStretch from './SettingStretch';
-import SettingDirection from './SettingDirection';
-import SettingFullscreen from './SettingFullscreen';
+// import SettingStretch from './SettingStretch';
+// import SettingDirection from './SettingDirection';
+// import SettingFullscreen from './SettingFullscreen';
 
 // ----------------------------------------------------------------------
 
