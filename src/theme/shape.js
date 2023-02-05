@@ -1,7 +1,7 @@
 // ----------------------------------------------------------------------
 
 const shape = {
-  borderRadius: 8,
+  borderRadius: 3,
   borderRadiusSm: 12,
   borderRadiusMd: 16
 };

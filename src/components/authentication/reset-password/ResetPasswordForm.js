@@ -58,13 +58,13 @@ export default function ResetPasswordForm({ onSent, onGetEmail }) {
             fullWidth
             {...getFieldProps('email')}
             type="email"
-            label="Email address"
+            label="Enter your Email address"
             error={Boolean(touched.email && errors.email)}
             helperText={touched.email && errors.email}
           />
 
           <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting} sx={{ backgroundColor: "#9B7E4A" }}>
-            Reset Password
+            Reset
           </LoadingButton>
         </Stack>
       </Form>

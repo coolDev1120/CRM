@@ -9,6 +9,8 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import PhotoSizeSelectLargeOutlinedIcon from "@mui/icons-material/PhotoSizeSelectLargeOutlined";
 import EmojiTransportationOutlinedIcon from "@mui/icons-material/EmojiTransportationOutlined";
+import PersonIcon from '@mui/icons-material/Person';
+import InsertCommentIcon from '@mui/icons-material/InsertComment';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // components
@@ -59,6 +61,11 @@ const sidebarConfig = [
         icon: <WorkIcon />
       },
       {
+        title: 'tasks',
+        path: '/dashboard/task',
+        icon: <InsertCommentIcon />
+      },
+      {
         title: "Enquiries",
         path: '/dashboard/calendar',
         icon: <QuestionAnswerOutlinedIcon />,
@@ -72,6 +79,11 @@ const sidebarConfig = [
         title: "Finance",
         path: '/dashboard/calendar',
         icon: <MonetizationOnIcon />,
+      },
+      {
+        title: "Contacts",
+        path: '/dashboard/contact',
+        icon: <PersonIcon />,
       },
       {
         title: "Calendar",
@@ -95,7 +107,7 @@ const sidebarConfig = [
       },
       {
         title: "Assets Management",
-        path: '/dashboard/calendar',
+        path: '/dashboard/assets',
         icon: <EmojiTransportationOutlinedIcon />,
       },
       {

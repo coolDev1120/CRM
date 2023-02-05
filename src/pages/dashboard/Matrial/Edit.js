@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Select, message, Switch } from 'antd';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Button } from '@mui/material';
@@ -79,7 +79,7 @@ const App = () => {
                                 </Stack>
                             }
                             <Form
-                            form={form}
+                                form={form}
                                 name="basic"
                                 layout="vertical"
                                 labelCol={{
@@ -107,6 +107,7 @@ const App = () => {
                                             ]}
                                         >
                                             <Select
+                                                size="large"
                                                 showSearch
                                                 placeholder="Select Company"
                                                 optionFilterProp="children"
@@ -141,6 +142,7 @@ const App = () => {
                                             ]}
                                         >
                                             <Select
+                                                size="large"
                                                 showSearch
                                                 placeholder="Select Category"
                                                 optionFilterProp="children"
@@ -175,6 +177,7 @@ const App = () => {
                                             ]}
                                         >
                                             <Select
+                                                size="large"
                                                 showSearch
                                                 placeholder="Select sub-category"
                                                 optionFilterProp="children"
@@ -209,6 +212,7 @@ const App = () => {
                                             ]}
                                         >
                                             <Select
+                                                size="large"
                                                 showSearch
                                                 placeholder="Select sub-sub-category"
                                                 optionFilterProp="children"
@@ -246,7 +250,7 @@ const App = () => {
                                                 },
                                             ]}
                                         >
-                                            <Input />
+                                            <Input size="large" />
                                         </Form.Item>
                                     </Grid>
                                     <Grid item xs={12} md={6} lg={3}>
@@ -262,7 +266,7 @@ const App = () => {
                                         >
                                             <Select
                                                 mode="tags"
-                                                size="middle"
+                                                size="large"
                                                 placeholder="Please select"
                                                 style={{
                                                     width: '100%',
@@ -312,7 +316,7 @@ const App = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input />
+                                                <Input size="large" />
                                             </Form.Item>
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={6}>
@@ -326,19 +330,19 @@ const App = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input />
+                                                <Input size="large" />
                                             </Form.Item>
                                         </Grid>
                                     </Grid>
                                 </Form.Item>
 
-                                <Box sx={{ background: '#F3F1EB', padding: '25px', mx: '-25px', mb: '20px' }}>
+                                <Box sx={{ background: '#F3F1EB', padding: '25px', mb: '20px' }}>
                                     <Grid container spacing={3}>
                                         <Grid item xs={12} md={6} lg={3}>
                                             <Form.Item
                                                 label="Purchase Price"
                                             >
-                                                <Input value='BRITISH POUND' />
+                                                <Input size="large" value='BRITISH POUND' />
                                             </Form.Item>
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={3}>
@@ -352,7 +356,7 @@ const App = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input placeholder='ENTER PRICE' />
+                                                <Input size="large" placeholder='ENTER PRICE' />
                                             </Form.Item>
                                         </Grid>
                                     </Grid>
@@ -373,7 +377,7 @@ const App = () => {
                                             <Form.Item
                                                 label="Sale Price"
                                             >
-                                                <Input value='BRITISH POUND' />
+                                                <Input size="large" value='BRITISH POUND' />
                                             </Form.Item>
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={3}>
@@ -387,7 +391,7 @@ const App = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input placeholder='ENTER PRICE' />
+                                                <Input size="large" placeholder='ENTER PRICE' />
                                             </Form.Item>
                                         </Grid>
                                     </Grid>
@@ -404,7 +408,7 @@ const App = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input />
+                                                <Input size="large" />
                                             </Form.Item>
                                         </Grid>
                                     </Grid>
@@ -421,7 +425,7 @@ const App = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input />
+                                                <Input size="large" />
                                             </Form.Item>
                                         </Grid>
                                     </Grid>
@@ -432,7 +436,7 @@ const App = () => {
                                         offset: 8,
                                         span: 16
                                     }}
-                                    style={{ textAlign: 'right' }}
+                                    style={{ textAlign: 'left' }}
                                 >
                                     <Button sx={{ mx: '15px' }} variant="contained" type="submit">
                                         Submit

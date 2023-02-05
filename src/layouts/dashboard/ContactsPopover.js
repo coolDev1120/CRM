@@ -1,53 +1,56 @@
-import { Icon } from '@iconify/react';
-import { useRef, useState, useCallback, useEffect } from 'react';
+import { 
+  useRef
+  // , useState, useCallback, useEffect
+ } from 'react';
 import peopleFill from '@iconify/icons-eva/people-fill';
 // material
-import { alpha } from '@mui/material/styles';
-import { Avatar, Typography, ListItemText, ListItemButton, ListItemAvatar } from '@mui/material';
+// import { alpha } from '@mui/material/styles';
+// import { Avatar, Typography, ListItemText, ListItemButton, ListItemAvatar } from '@mui/material';
 // hooks
-import useIsMountedRef from '../../hooks/useIsMountedRef';
+// import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
-import axios from '../../utils/axios';
-import { fToNow } from '../../utils/formatTime';
+// import axios from '../../utils/axios';
+// import { fToNow } from '../../utils/formatTime';
 // components
-import Scrollbar from '../../components/Scrollbar';
-import MenuPopover from '../../components/MenuPopover';
-import BadgeStatus from '../../components/BadgeStatus';
+// import Scrollbar from '../../components/Scrollbar';
+// import MenuPopover from '../../components/MenuPopover';
+// import BadgeStatus from '../../components/BadgeStatus';
 import { MIconButton } from '../../components/@material-extend';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 // ----------------------------------------------------------------------
 
-const ITEM_HEIGHT = 64;
-const PADDING_ITEM = 2.5;
+// const ITEM_HEIGHT = 64;
+// const PADDING_ITEM = 2.5;
 
 export default function ContactsPopover() {
   const anchorRef = useRef(null);
-  const isMountedRef = useIsMountedRef();
-  const [open, setOpen] = useState(false);
-  const [contacts, setContacts] = useState([]);
+  // const isMountedRef = useIsMountedRef();
+  // const [open, setOpen] = useState(false);
+  // const [contacts, setContacts] = useState([]);
 
-  const getContacts = useCallback(async () => {
-    try {
-      const response = await axios.get('/api/chat/contacts');
-      if (isMountedRef.current) {
-        setContacts(response.data.contacts);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [isMountedRef]);
+  // const getContacts = useCallback(async () => {
+  //   try {
+  //     const response = await axios.get('/api/chat/contacts');
+  //     if (isMountedRef.current) {
+  //       setContacts(response.data.contacts);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }, [isMountedRef]);
 
-  useEffect(() => {
-    getContacts();
-  }, [getContacts]);
+  // useEffect(() => {
+  //   getContacts();
+  // }, [getContacts]);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
   return (
     <>
@@ -55,17 +58,17 @@ export default function ContactsPopover() {
         ref={anchorRef}
         size="large"
         className="color-white"
-        onClick={handleOpen}
-        sx={{
-          ...(open && {
-            bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.focusOpacity)
-          })
-        }}
+        // onClick={handleOpen}
+        // sx={{
+        //   ...(open && {
+        //     bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.focusOpacity)
+        //   })
+        // }}
       >
-        <Icon icon={peopleFill} width={20} height={20} />
+        <SettingsIcon icon={peopleFill} width={20} height={20}/>
       </MIconButton>
 
-      <MenuPopover open={open} onClose={handleClose} anchorEl={anchorRef.current} sx={{ width: 360 }}>
+      {/* <MenuPopover open={open} onClose={handleClose} anchorEl={anchorRef.current} sx={{ width: 360 }}>
         <Typography variant="h6" sx={{ p: PADDING_ITEM }}>
           Contacts <Typography component="span">({contacts.length})</Typography>
         </Typography>
@@ -90,7 +93,7 @@ export default function ContactsPopover() {
             );
           })}
         </Scrollbar>
-      </MenuPopover>
+      </MenuPopover> */}
     </>
   );
 }

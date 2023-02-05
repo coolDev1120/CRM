@@ -90,6 +90,7 @@ const App = () => {
                                             ]}
                                         >
                                             <Select
+                                                size="large"
                                                 showSearch
                                                 placeholder="Select Company"
                                                 optionFilterProp="children"
@@ -124,6 +125,7 @@ const App = () => {
                                             ]}
                                         >
                                             <Select
+                                                size="large"
                                                 showSearch
                                                 placeholder="Select Category"
                                                 optionFilterProp="children"
@@ -158,6 +160,7 @@ const App = () => {
                                             ]}
                                         >
                                             <Select
+                                                size="large"
                                                 showSearch
                                                 placeholder="Select sub-category"
                                                 optionFilterProp="children"
@@ -192,6 +195,7 @@ const App = () => {
                                             ]}
                                         >
                                             <Select
+                                                size="large"
                                                 showSearch
                                                 placeholder="Select sub-sub-category"
                                                 optionFilterProp="children"
@@ -229,7 +233,7 @@ const App = () => {
                                                 },
                                             ]}
                                         >
-                                            <Input />
+                                            <Input size="large" />
                                         </Form.Item>
                                     </Grid>
                                     <Grid item xs={12} md={6} lg={3}>
@@ -244,8 +248,8 @@ const App = () => {
                                             ]}
                                         >
                                             <Select
+                                                size="large"
                                                 mode="tags"
-                                                size="middle"
                                                 placeholder="Please select"
                                                 style={{
                                                     width: '100%',
@@ -295,7 +299,7 @@ const App = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input />
+                                                <Input size="large" />
                                             </Form.Item>
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={6}>
@@ -309,19 +313,19 @@ const App = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input />
+                                                <Input size="large" />
                                             </Form.Item>
                                         </Grid>
                                     </Grid>
                                 </Form.Item>
 
-                                <Box sx={{ background: '#F3F1EB', padding: '25px', mx: '-25px', mb: '20px' }}>
+                                <Box sx={{ background: '#F3F1EB', padding: '25px', mb: '20px' }}>
                                     <Grid container spacing={3}>
                                         <Grid item xs={12} md={6} lg={3}>
                                             <Form.Item
                                                 label="Purchase Price"
                                             >
-                                                <Input value='BRITISH POUND' />
+                                                <Input size="large" value='BRITISH POUND' />
                                             </Form.Item>
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={3}>
@@ -335,7 +339,7 @@ const App = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input placeholder='ENTER PRICE' />
+                                                <Input size="large" placeholder='ENTER PRICE' />
                                             </Form.Item>
                                         </Grid>
                                     </Grid>
@@ -356,7 +360,7 @@ const App = () => {
                                             <Form.Item
                                                 label="Sale Price"
                                             >
-                                                <Input value='BRITISH POUND' />
+                                                <Input size="large" value='BRITISH POUND' />
                                             </Form.Item>
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={3}>
@@ -370,7 +374,7 @@ const App = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input placeholder='ENTER PRICE' />
+                                                <Input size="large" placeholder='ENTER PRICE' />
                                             </Form.Item>
                                         </Grid>
                                     </Grid>
@@ -387,7 +391,7 @@ const App = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input />
+                                                <Input size="large" />
                                             </Form.Item>
                                         </Grid>
                                     </Grid>
@@ -404,7 +408,7 @@ const App = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input />
+                                                <Input size="large" />
                                             </Form.Item>
                                         </Grid>
                                     </Grid>
@@ -412,16 +416,15 @@ const App = () => {
 
                                 <Form.Item
                                     wrapperCol={{
-                                        offset: 8,
+                                        offset: 0,
                                         span: 16
                                     }}
-                                    style={{ textAlign: 'right' }}
                                 >
-                                    <Button sx={{ mx: '15px' }} variant="contained" type="submit">
+                                    <Button sx={{ mr: '15px' }} variant="contained" type="submit">
                                         Submit
                                     </Button>
                                     <Link to="/dashboard/materials" style={{ textDecoration: 'none' }}>
-                                        <Button variant="outlined">Cancel</Button>
+                                        <Button variant="contained" className='btn_cancel'>Cancel</Button>
                                     </Link>
                                 </Form.Item>
                             </Form>

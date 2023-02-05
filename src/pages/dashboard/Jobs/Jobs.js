@@ -1,13 +1,10 @@
-
-
-
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect, useRef } from 'react';
 import Pdf from 'react-to-pdf';
-import { Table, Pagination, Space, Input, Button as Button2, Popconfirm, message } from 'antd';
+import { Table, Pagination, Space, Input, Popconfirm, message } from 'antd';
 import { Typography, Button } from '@mui/material';
 import Divider from '@mui/material/Divider';
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import EditSharpIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import axios from 'axios';
 
@@ -20,6 +17,7 @@ import moment from 'moment'
 import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import Menu from '@mui/material/Menu';
 import Page from '../../../components/Page';
 
@@ -167,7 +165,7 @@ export default function EcommerceProductList() {
 			render: (_, job_id) => (
 				<Space size="middle">
 					<Link to={`/dashboard/jobs/edit/${job_id.job_id}`}>
-						<EditSharpIcon sx={{ color: '#768593' }} />
+						<AppRegistrationIcon sx={{ color: '#424242' }} />
 					</Link>
 					<Popconfirm
 						title="Are you sure to delete this task?"
@@ -175,9 +173,9 @@ export default function EcommerceProductList() {
 						okText="Yes"
 						cancelText="No"
 					>
-						<DeleteOutlinedIcon sx={{ color: '#768593' }} />
+						<DeleteSweepIcon sx={{ color: '#424242' }} />
 					</Popconfirm>
-					<a><MoreVertOutlinedIcon sx={{ color: '#768593' }} /></a>
+					<a><MoreVertOutlinedIcon sx={{ color: '#424242' }} /></a>
 				</Space>
 			),
 		},
@@ -218,15 +216,15 @@ export default function EcommerceProductList() {
 		}
 	};
 
-	const itemRender = (_, type, originalElement) => {
-		if (type === 'prev') {
-			return <Button2 type='primary'>Previous</Button2>;
-		}
-		if (type === 'next') {
-			return <Button2 type='primary'>Next</Button2>;
-		}
-		return originalElement;
-	};
+	// const itemRender = (_, type, originalElement) => {
+	// 	if (type === 'prev') {
+	// 		return <Button2 type='primary'>Previous</Button2>;
+	// 	}
+	// 	if (type === 'next') {
+	// 		return <Button2 type='primary'>Next</Button2>;
+	// 	}
+	// 	return originalElement;
+	// };
 
 	const onPageChange = (page, pageSize) => {
 		console.log(page, pageSize)
@@ -283,7 +281,7 @@ export default function EcommerceProductList() {
 					LIVE JOBS
 				</Typography>
 
-				<Box sx={{ px: '20px' }}>
+				<Box>
 					<div style={{ display: 'flex', marginBottom: '15px' }}>
 						<Box sx={{ minWidth: 120, mr: '20px' }}>
 							<FormControl sx={{ width: '200px' }} size="small">
@@ -306,7 +304,7 @@ export default function EcommerceProductList() {
 						</Box>
 					</div>
 
-					<Divider />
+					<Divider sx={{ borderColor: '#000000ad' }} />
 
 					<Box className='toolbar'>
 						<FormControl sx={{ width: '100px' }} size="small">

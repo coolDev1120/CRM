@@ -53,11 +53,8 @@ const App = () => {
                 input.enddate = moment(input.enddate)
                 input.starttime = moment(input.starttime)
                 input.tags = JSON.parse(input.tags)
-                form.setFieldsValue(res.data.data[0]);
+                form.setFieldsValue(input);
             })
-            .catch((err) => {
-
-            });
     }, []);
 
     return (

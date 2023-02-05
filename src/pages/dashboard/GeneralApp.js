@@ -21,6 +21,8 @@ import Description from 'src/components/Description';
 import CardProject from 'src/components/CardProject'
 import BankingBalanceStatistics from 'src/components/_dashboard/general-banking/BankingBalanceStatistics'
 
+import SvgIconStyle from '../../components/SvgIconStyle';
+
 // ----------------------------------------------------------------------
 
 
@@ -191,10 +193,10 @@ export default function GeneralApp() {
     <>
       <Box sx={{ mx: '-15px', py: '15px', px: '20px', mt: '-24px', mb: '20px', borderBottom: '1px solid', borderColor: '#c3c3c3', background: '#eee' }}>
         <div style={{ display: 'flex' }}>
-          <ColorLensIcon sx={{ fontSize: '58px', mx: '15px', color: PRIMARY_MAIN}} />
+          {/* <ColorLensIcon sx={{ fontSize: '58px', mx: '15px', color: PRIMARY_MAIN}} /> */}
+          <SvgIconStyle src={`/static/icons/navbar/ic_dashboard.svg`} sx={{ width: '65px', height: '60px', mx: '15px', color: PRIMARY_MAIN }} />
           <div>
             <Typography
-              color={PRIMARY_MAIN}
               sx={{
                 fontSize: '23px',
                 fontWeight: 'bold',

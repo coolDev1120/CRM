@@ -90,6 +90,13 @@ export default function Router() {
         { path: 'task', element: <Task /> },
         { path: 'task/add', element: <AddTask /> },
         { path: 'task/edit/:id', element: <EditTask /> },
+        { path: 'contact', element: <Contact /> },
+        { path: 'contact/add', element: <AddContact /> },
+        { path: 'contact/edit/:id', element: <EditContact /> },
+        // Assets
+        { path: 'assets', element: <Assets /> },
+        { path: 'assets/add', element: <AddAssets /> },
+        { path: 'assets/edit/:id', element: <EditAssets /> },
 
         { path: 'ecommerce', element: <GeneralEcommerce /> },
         { path: 'analytics', element: <GeneralAnalytics /> },
@@ -195,6 +202,16 @@ const EditMatrials = Loadable(lazy(() => import('../pages/dashboard/Matrial/Edit
 const AddTask = Loadable(lazy(() => import('../pages/dashboard/Task/Add')));
 const EditTask = Loadable(lazy(() => import('../pages/dashboard/Task/Edit')));
 const Task = Loadable(lazy(() => import('../pages/dashboard/Task/index')));
+
+// Contact
+const AddContact = Loadable(lazy(() => import('../pages/dashboard/contact/Add')));
+const EditContact = Loadable(lazy(() => import('../pages/dashboard/contact/Edit')));
+const Contact = Loadable(lazy(() => import('../pages/dashboard/contact/index')));
+
+// Assets
+const AddAssets = Loadable(lazy(() => import('../pages/dashboard/Assets/Add')));
+const EditAssets = Loadable(lazy(() => import('../pages/dashboard/Assets/Edit')));
+const Assets = Loadable(lazy(() => import('../pages/dashboard/Assets/index')));
 
 const Jobs = Loadable(lazy(() => import('../pages/dashboard/Jobs/Jobs')));
 const AddJob = Loadable(lazy(() => import('../pages/dashboard/Jobs/Add')));

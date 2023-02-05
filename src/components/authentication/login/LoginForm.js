@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { Stack, Alert, Checkbox, TextField, IconButton, InputAdornment, FormControlLabel } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // routes
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -64,6 +65,16 @@ export default function LoginForm() {
             autoComplete="username"
             type="email"
             label="Email"
+            variant="standard"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton edge="end">
+                    <PersonOutlineIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             {...getFieldProps('email')}
             error={Boolean(touched.email && errors.email)}
             helperText={touched.email && errors.email}
@@ -74,6 +85,7 @@ export default function LoginForm() {
             autoComplete="current-password"
             type={showPassword ? 'text' : 'password'}
             label="Password"
+            variant="standard"
             {...getFieldProps('password')}
             InputProps={{
               endAdornment: (

@@ -1,12 +1,18 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 
 
 
 import React, { useState, useEffect, useRef } from 'react';
 import Pdf from 'react-to-pdf';
 import { Table, Pagination, Space, Input, Button as Button2, Popconfirm, message, Tag } from 'antd';
+// icons
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import EditSharpIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import UpgradeIcon from '@mui/icons-material/Upgrade';
+
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+
 import axios from 'axios';
 import { useTheme } from '@mui/material/styles';
 
@@ -14,7 +20,7 @@ import { Select, FormControl, MenuItem, InputLabel, Box, Divider, Typography, Bu
 import moment from 'moment'
 import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
 import Menu from '@mui/material/Menu';
 import Page from '../../../components/Page';
 
@@ -85,8 +91,6 @@ export default function EcommerceProductList() {
 		{
 			title: 'REF',
 			dataIndex: 'key',
-			sorter: (a, b) => a.name - b.name,
-			defaultSortOrder: 'descend',
 		},
 		{
 			title: 'TITLE',
@@ -138,7 +142,7 @@ export default function EcommerceProductList() {
 			render: (_, material_id) => (
 				<Space size="middle">
 					<Link to={`/dashboard/materials/edit/${material_id.material_id}`}>
-						<EditSharpIcon sx={{ color: '#768593' }} />
+						<AppRegistrationIcon sx={{ color: '#424242' }} />
 					</Link>
 					<Popconfirm
 						title="Are you sure to delete this task?"
@@ -146,9 +150,9 @@ export default function EcommerceProductList() {
 						okText="Yes"
 						cancelText="No"
 					>
-						<DeleteOutlinedIcon sx={{ color: '#768593' }} />
+						<DeleteOutlinedIcon sx={{ color: '#424242' }} />
 					</Popconfirm>
-					<a><MoreVertOutlinedIcon sx={{ color: '#768593' }} /></a>
+					<a><MoreVertOutlinedIcon sx={{ color: '#424242' }} /></a>
 				</Space>
 			),
 		},
@@ -187,16 +191,6 @@ export default function EcommerceProductList() {
 			setOrder('descend');
 			setField('material_id');
 		}
-	};
-
-	const itemRender = (_, type, originalElement) => {
-		if (type === 'prev') {
-			return <Button2 type='primary'>Previous</Button2>;
-		}
-		if (type === 'next') {
-			return <Button2 type='primary'>Next</Button2>;
-		}
-		return originalElement;
 	};
 
 	const onPageChange = (page, pageSize) => {
@@ -245,6 +239,7 @@ export default function EcommerceProductList() {
 				<Typography
 					color="text.primary"
 					sx={{
+						textTransform: 'uppercase',
 						fontSize: '23px',
 						fontWeight: 'bold',
 						background: '#E8F2F4',
@@ -254,7 +249,7 @@ export default function EcommerceProductList() {
 					Matrials
 				</Typography>
 
-				<Box sx={{ px: '20px' }}>
+				<Box>
 					<Box className='select-toolbar'>
 						<Box className='item' >
 							<FormControl sx={{ width: '200px' }} size="small">
@@ -315,7 +310,7 @@ export default function EcommerceProductList() {
 						</Box>
 					</Box>
 
-					<Divider />
+					<Divider sx={{ borderColor: '#000000ad' }} />
 
 					<Box className='toolbar'>
 						<FormControl sx={{ width: '100px' }} size="small">
@@ -334,8 +329,11 @@ export default function EcommerceProductList() {
 						</FormControl>
 						<div style={{ flex: '1 1 0%', textAlign: 'right' }}>
 							<Input onChange={(e) => Setsearch(e.target.value)} onKeyPress={handlekeypress} size="large" placeholder="Search..." style={{ width: '200px' }} />
+							<Button sx={{mx: '20px'}} variant="outlined" startIcon={<UpgradeIcon />} endIcon={<KeyboardArrowDownIcon />}>
+								CSV import
+							</Button>
 							<Button
-								sx={{ ml: '20px', mr: '20px' }}
+								sx={{ mr: '20px'}}
 								id="demo-customized-button"
 								aria-controls={open ? 'demo-customized-menu' : undefined}
 								aria-haspopup="true"
@@ -343,6 +341,7 @@ export default function EcommerceProductList() {
 								variant="outlined"
 								disableElevation
 								onClick={handleClick}
+								startIcon={<UpgradeIcon />}
 								endIcon={<KeyboardArrowDownIcon />}
 							>
 								Export
@@ -366,6 +365,7 @@ export default function EcommerceProductList() {
 									</Pdf>
 								</MenuItem>
 							</StyledMenu>
+
 							<Link to="/dashboard/materials/add" style={{ textDecoration: 'none' }}>
 								<Button variant="contained"> ADD </Button>
 							</Link>

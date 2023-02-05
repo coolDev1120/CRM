@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 
 
 
@@ -6,9 +7,11 @@ import Pdf from 'react-to-pdf';
 import { Table, Pagination, Space, Input, Button as Button2, Popconfirm, message, Tag } from 'antd';
 import { Typography, Button } from '@mui/material';
 import Divider from '@mui/material/Divider';
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import EditSharpIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
+import UpgradeIcon from '@mui/icons-material/Upgrade';
 import axios from 'axios';
 
 import Box from '@mui/material/Box';
@@ -19,7 +22,6 @@ import Select from '@mui/material/Select';
 import moment from 'moment'
 import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Menu from '@mui/material/Menu';
 import Page from '../../../components/Page';
 
@@ -110,7 +112,7 @@ export default function EcommerceProductList() {
 			dataIndex: 'responsible',
 			render: (responsible) => (
 				JSON.parse(responsible).map((tag, index) =>
-					<div key={index}>{tag}</div>
+					<span key={index}>{tag}, </span>
 				)
 			)
 		},
@@ -154,7 +156,7 @@ export default function EcommerceProductList() {
 			render: (_, task_id) => (
 				<Space size="middle">
 					<Link to={`/dashboard/task/edit/${task_id.task_id}`}>
-						<EditSharpIcon sx={{ color: '#768593' }} />
+						<AppRegistrationIcon sx={{ color: '#424242' }} />
 					</Link>
 					<Popconfirm
 						title="Are you sure to delete this task?"
@@ -162,9 +164,9 @@ export default function EcommerceProductList() {
 						okText="Yes"
 						cancelText="No"
 					>
-						<DeleteOutlinedIcon sx={{ color: '#768593' }} />
+						<DeleteSweepIcon sx={{ color: '#424242' }} />
 					</Popconfirm>
-					<a><MoreVertOutlinedIcon sx={{ color: '#768593' }} /></a>
+					<a><MoreVertOutlinedIcon sx={{ color: '#424242' }} /></a>
 				</Space>
 			),
 		},
@@ -270,7 +272,7 @@ export default function EcommerceProductList() {
 					Matrials
 				</Typography>
 
-				<Box sx={{ px: '20px' }}>
+				<Box>
 					<div style={{ display: 'flex', marginBottom: '15px' }}>
 						<Box sx={{ minWidth: 120, mr: '20px' }}>
 							<FormControl sx={{ width: '200px' }} size="small">
@@ -331,7 +333,7 @@ export default function EcommerceProductList() {
 						</Box>
 					</div>
 
-					<Divider />
+					<Divider sx={{ borderColor: '#000000ad' }}/>
 
 					<div style={{ marginTop: '20px', marginBottom: '20px', display: 'flex' }}>
 						<FormControl sx={{ width: '100px' }} size="small">
@@ -350,8 +352,11 @@ export default function EcommerceProductList() {
 						</FormControl>
 						<div style={{ flex: '1 1 0%', textAlign: 'right' }}>
 							<Input onChange={(e) => Setsearch(e.target.value)} onKeyPress={handlekeypress} size="large" placeholder="Search..." style={{ width: '200px' }} />
+							<Button sx={{mx: '20px'}} variant="outlined" startIcon={<UpgradeIcon />} endIcon={<KeyboardArrowDownIcon />}>
+								CSV import
+							</Button>
 							<Button
-								sx={{ ml: '20px', mr: '20px' }}
+								sx={{ mr: '20px'}}
 								id="demo-customized-button"
 								aria-controls={open ? 'demo-customized-menu' : undefined}
 								aria-haspopup="true"
@@ -359,10 +364,12 @@ export default function EcommerceProductList() {
 								variant="outlined"
 								disableElevation
 								onClick={handleClick}
+								startIcon={<UpgradeIcon />}
 								endIcon={<KeyboardArrowDownIcon />}
 							>
 								Export
 							</Button>
+							
 							<StyledMenu
 								id="demo-customized-menu"
 								MenuListProps={{

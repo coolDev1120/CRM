@@ -45,7 +45,6 @@ export default function Login() {
           </Link>
         </AuthLayout>
 
-
         <Container sx={{ maxWidth: '600px' }}>
           <ContentStyle>
             <Card sx={{ display: 'flex' }}>
@@ -81,6 +80,13 @@ export default function Login() {
             </Card>
           </ContentStyle>
         </Container>
+
+        <MHidden width="smDown">
+          <Box sx={{ position: 'fixed', bottom: "10px", background: "#fff", width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <img style={{ maxHeight: '150px', padding: '20px' }} src='/static/auth/btm_1.png' />
+            <img style={{ maxHeight: '150px', padding: '20px' }} src='/static/auth/btm_2.png' />
+          </Box>
+        </MHidden>
       </RootStyle>
     </>
   );
