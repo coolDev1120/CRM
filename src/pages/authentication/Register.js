@@ -71,6 +71,13 @@ export default function Register() {
           </Card>
         </ContentStyle>
       </Container>
+
+      <MHidden width="smDown">
+          <Box sx={{ position: 'fixed', bottom: "10px", background: "#fff", width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <img style={{ maxHeight: '150px', padding: '20px' }} src='/static/auth/btm_1.png' />
+            <img style={{ maxHeight: '150px', padding: '20px' }} src='/static/auth/btm_2.png' />
+          </Box>
+        </MHidden>
     </RootStyle>
   );
 }

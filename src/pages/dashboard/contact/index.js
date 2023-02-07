@@ -169,6 +169,22 @@ export default function EcommerceProductList() {
             Setsearch2(search);
         }
     }
+    
+    useEffect(() => {
+        // get Companies
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/getCompany`)
+            .then((res) => {
+                var temp = [];
+                for (let i = 0; i < res.data.length; i++) {
+                    let val = {}
+                    val.value = res.data[i].id;
+                    val.label = res.data[i].company_name;
+                    temp.push(val)
+                }
+                console.log(temp)
+                setCompany(temp)
+            })
+    }, []);
 
     useEffect(() => {
         var selectOption = []
@@ -189,22 +205,6 @@ export default function EcommerceProductList() {
                 setTotal(res.data.total);
             })
     }, [current, perpage, search2, order, field, refresh, selectedCompany]);
-
-    useEffect(() => {
-        // get Companies
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/getCompany`)
-            .then((res) => {
-                var temp = [];
-                for (let i = 0; i < res.data.length; i++) {
-                    let val = {}
-                    val.value = res.data[i].id;
-                    val.label = res.data[i].company_name;
-                    temp.push(val)
-                }
-                console.log(temp)
-                setCompany(temp)
-            })
-    }, []);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);

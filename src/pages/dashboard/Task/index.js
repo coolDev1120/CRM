@@ -4,7 +4,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Pdf from 'react-to-pdf';
-import { Table, Pagination, Space, Input, Button as Button2, Popconfirm, message, Tag } from 'antd';
+import { Table, Pagination, Space, Input, Select as Select2, Popconfirm, message, Tag } from 'antd';
 import { Typography, Button } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
@@ -69,7 +69,6 @@ const StyledMenu = styled((props) => (
 
 
 export default function EcommerceProductList() {
-	const [age, setAge] = React.useState('');
 	const [data, setData] = useState([]);
 	const [perpage, setPerpage] = useState(10);
 	const [current, setCurrent] = useState(1);
@@ -79,31 +78,25 @@ export default function EcommerceProductList() {
 	const [order, setOrder] = useState('descend');
 	const [field, setField] = useState('task_id');
 	const [refresh, Setrefresh] = useState(false);
+	const [companies, setCompany] = useState([]);
+	const [selectedCompany, setSelectedCompany] = useState('none')
 
 	const ref1 = useRef();
-	const handleChange = (event) => {
-		setAge(event.target.value);
-	};
-
 	const columns = [
 		{
 			title: 'REF',
 			dataIndex: 'key',
-			sorter: (a, b) => a.name - b.name,
-			defaultSortOrder: 'descend',
 		},
 		{
 			title: 'THE TASKS',
 			dataIndex: 'description',
 			sorter: (a, b) => a.name - b.name,
-			// defaultSortOrder: 'descend',
 		},
 		{
 			title: 'STATUS',
 			dataIndex: 'category',
-			// defaultSortOrder: 'descend',
 			sorter: (a, b) => a.age - b.age,
-			render:() => (
+			render: () => (
 				<Tag color="#108ee9">INVOICE SENT</Tag>
 			)
 		},
@@ -120,7 +113,7 @@ export default function EcommerceProductList() {
 			title: 'DATE CRE',
 			dataIndex: 'createdAt',
 			sorter: (a, b) => a.age - b.age,
-			render:(createdAt) => (
+			render: (createdAt) => (
 				<div>{moment(createdAt).format('YYYY-MM-DD')}</div>
 			)
 		},
@@ -128,7 +121,7 @@ export default function EcommerceProductList() {
 			title: 'TIME',
 			dataIndex: 'createdAt',
 			sorter: (a, b) => a.age - b.age,
-			render:(createdAt) => (
+			render: (createdAt) => (
 				<div>{moment(createdAt).format('HH:mm')}</div>
 			)
 		},
@@ -207,15 +200,15 @@ export default function EcommerceProductList() {
 		}
 	};
 
-	const itemRender = (_, type, originalElement) => {
-		if (type === 'prev') {
-			return <Button2 type='primary'>Previous</Button2>;
-		}
-		if (type === 'next') {
-			return <Button2 type='primary'>Next</Button2>;
-		}
-		return originalElement;
-	};
+	// const itemRender = (_, type, originalElement) => {
+	// 	if (type === 'prev') {
+	// 		return <Button2 type='primary'>Previous</Button2>;
+	// 	}
+	// 	if (type === 'next') {
+	// 		return <Button2 type='primary'>Next</Button2>;
+	// 	}
+	// 	return originalElement;
+	// };
 
 	const onPageChange = (page, pageSize) => {
 		console.log(page, pageSize)
@@ -230,8 +223,29 @@ export default function EcommerceProductList() {
 	}
 
 	useEffect(() => {
+		// get Companies
+		axios.post(`${process.env.REACT_APP_SERVER_URL}/getCompany`)
+			.then((res) => {
+				var temp = [];
+				for (let i = 0; i < res.data.length; i++) {
+					let val = {}
+					val.value = res.data[i].id;
+					val.label = res.data[i].company_name;
+					temp.push(val)
+				}
+				console.log(temp)
+				setCompany(temp)
+			})
+	}, []);
+
+	useEffect(() => {
+		var selectOption = []
+		if (selectedCompany !== 'none') {
+			selectOption.push({ name: 'company', value: selectedCompany })
+		}
+
 		axios
-			.post(`${process.env.REACT_APP_SERVER_URL}/gettask`, { current: current, perpage: perpage, search: search2, order: order, field: field })
+			.post(`${process.env.REACT_APP_SERVER_URL}/gettask`, { current: current, perpage: perpage, search: search2, order: order, field: field, option: selectOption })
 			.then((res) => {
 				console.log(res.data.data)
 				var temp = [];
@@ -246,7 +260,7 @@ export default function EcommerceProductList() {
 			.catch((err) => {
 
 			});
-	}, [current, perpage, search2, order, field, refresh]);
+	}, [current, perpage, search2, order, field, refresh, selectedCompany]);
 
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
@@ -259,81 +273,44 @@ export default function EcommerceProductList() {
 
 	return (
 		<>
-			<Page title="The Yorkshire Resin Company Ltd | Matrials">
+			<Page title="The Yorkshire Resin Company Ltd | Tasks">
 				<Typography
 					color="text.primary"
 					sx={{
+						textTransform: 'uppercase',
 						fontSize: '23px',
 						fontWeight: 'bold',
 						background: '#E8F2F4',
 						padding: '10px',
 						mb: '20px'
 					}}>
-					Matrials
+					tasks
 				</Typography>
 
-				<Box>
-					<div style={{ display: 'flex', marginBottom: '15px' }}>
-						<Box sx={{ minWidth: 120, mr: '20px' }}>
+				<Box >
+					<Box className='select-toolbar'>
+						<Box className='item' >
 							<FormControl sx={{ width: '200px' }} size="small">
 								<InputLabel id="select-company">Select Company</InputLabel>
 								<Select
 									labelId="select-company"
 									id="company"
-									value={age}
+									value={selectedCompany}
 									label="Select Company"
-									onChange={handleChange}
+									onChange={(e) => setSelectedCompany(e.target.value)}
 								>
 									<MenuItem value="">
 										<em>None</em>
 									</MenuItem>
-									<MenuItem value={10}>Ten</MenuItem>
-									<MenuItem value={20}>Twenty</MenuItem>
-									<MenuItem value={30}>Thirty</MenuItem>
+									{companies.map((val) =>
+										<MenuItem key={val.value} value={val.value}>{val.label}</MenuItem>
+									)}
 								</Select>
 							</FormControl>
 						</Box>
-						<Box sx={{ minWidth: 120, mr: '20px' }}>
-							<FormControl sx={{ width: '200px' }} size="small">
-								<InputLabel id="select-category">Select Category</InputLabel>
-								<Select
-									labelId="select-category"
-									id="category"
-									value={age}
-									label="Select Company"
-									onChange={handleChange}
-								>
-									<MenuItem value="">
-										<em>None</em>
-									</MenuItem>
-									<MenuItem value={10}>Ten</MenuItem>
-									<MenuItem value={20}>Twenty</MenuItem>
-									<MenuItem value={30}>Thirty</MenuItem>
-								</Select>
-							</FormControl>
-						</Box>
-						<Box sx={{ minWidth: 120, mr: '20px' }}>
-							<FormControl sx={{ width: '200px' }} size="small">
-								<InputLabel id="select-subcategory">Select Sub Category</InputLabel>
-								<Select
-									labelId="select-subcategory"
-									id="subcategory"
-									value={age}
-									label="Select Company"
-									onChange={handleChange}
-								>
-									<MenuItem value="">
-										<em>None</em>
-									</MenuItem>
-									<MenuItem value={10}>Ten</MenuItem>
-									<MenuItem value={20}>Twenty</MenuItem>
-									<MenuItem value={30}>Thirty</MenuItem>
-								</Select>
-							</FormControl>
-						</Box>
-					</div>
+					</Box>
 
-					<Divider sx={{ borderColor: '#000000ad' }}/>
+					<Divider sx={{ borderColor: '#000000ad' }} />
 
 					<div style={{ marginTop: '20px', marginBottom: '20px', display: 'flex' }}>
 						<FormControl sx={{ width: '100px' }} size="small">
@@ -352,11 +329,11 @@ export default function EcommerceProductList() {
 						</FormControl>
 						<div style={{ flex: '1 1 0%', textAlign: 'right' }}>
 							<Input onChange={(e) => Setsearch(e.target.value)} onKeyPress={handlekeypress} size="large" placeholder="Search..." style={{ width: '200px' }} />
-							<Button sx={{mx: '20px'}} variant="outlined" startIcon={<UpgradeIcon />} endIcon={<KeyboardArrowDownIcon />}>
+							<Button sx={{ mx: '20px' }} variant="outlined" startIcon={<UpgradeIcon />} endIcon={<KeyboardArrowDownIcon />}>
 								CSV import
 							</Button>
 							<Button
-								sx={{ mr: '20px'}}
+								sx={{ mr: '20px' }}
 								id="demo-customized-button"
 								aria-controls={open ? 'demo-customized-menu' : undefined}
 								aria-haspopup="true"
@@ -369,7 +346,7 @@ export default function EcommerceProductList() {
 							>
 								Export
 							</Button>
-							
+
 							<StyledMenu
 								id="demo-customized-menu"
 								MenuListProps={{

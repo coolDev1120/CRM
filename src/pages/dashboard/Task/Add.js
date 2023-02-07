@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import { Form, Input, Select, message, Switch } from 'antd';
 import { Button } from '@mui/material';
 import axios from 'axios';
@@ -15,6 +15,7 @@ const { TextArea } = Input;
 
 const App = () => {
     const [success, setSuccess] = useState(false);
+    const [companies, setCompany] = useState([])
 
     const onFinish = (values) => {
         values.email = jwt_decode(localStorage.getItem('token')).email
@@ -35,6 +36,21 @@ const App = () => {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+    useEffect(() => {
+        // get Companies
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/getCompany`)
+            .then((res) => {
+                var temp = [];
+                for (let i = 0; i < res.data.length; i++) {
+                    let val = {}
+                    val.value = res.data[i].id;
+                    val.label = res.data[i].company_name;
+                    temp.push(val)
+                }
+                console.log(temp)
+                setCompany(temp)
+            })
+    }, []);
 
     return (
         <>
@@ -87,26 +103,10 @@ const App = () => {
                                             ]}
                                         >
                                             <Select
-                                                showSearch
+                                                size="large"
                                                 placeholder="Select Company"
                                                 optionFilterProp="children"
-                                                filterOption={(input, option) =>
-                                                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                                                }
-                                                options={[
-                                                    {
-                                                        value: 'jack',
-                                                        label: 'Jack',
-                                                    },
-                                                    {
-                                                        value: 'lucy',
-                                                        label: 'Lucy',
-                                                    },
-                                                    {
-                                                        value: 'tom',
-                                                        label: 'Tom',
-                                                    },
-                                                ]}
+                                                options={companies}
                                             />
                                         </Form.Item>
                                     </Grid>
@@ -124,7 +124,7 @@ const App = () => {
                                                 },
                                             ]}
                                         >
-                                            <Input />
+                                            <Input size="large" />
                                         </Form.Item>
                                     </Grid>
                                 </Grid>
@@ -141,7 +141,7 @@ const App = () => {
                                                 },
                                             ]}
                                         >
-                                            <TextArea rows={4} />
+                                            <TextArea rows={5} />
                                         </Form.Item>
                                     </Grid>
                                 </Grid>
@@ -159,6 +159,7 @@ const App = () => {
                                             ]}
                                         >
                                             <Select
+                                                size="large"
                                                 mode="multiple"
                                                 style={{
                                                     width: '100%',
@@ -191,14 +192,12 @@ const App = () => {
                                     />
                                 </Form.Item>
 
-                                <Form.Item
-                                    style={{ textAlign: 'left' }}
-                                >
-                                    <Button sx={{ mx: '15px' }} variant="contained" type="submit">
+                                <Form.Item>
+                                    <Button sx={{ mr: '15px' }} variant="contained" type="submit">
                                         Submit
                                     </Button>
                                     <Link to="/dashboard/task" style={{ textDecoration: 'none' }}>
-                                        <Button variant="outlined">Cancel</Button>
+                                        <Button variant="contained" className='btn_cancel'>Cancel</Button>
                                     </Link>
                                 </Form.Item>
                             </Form>

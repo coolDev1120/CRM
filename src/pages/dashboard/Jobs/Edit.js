@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, DatePicker, TimePicker, Checkbox, Select, message } from 'antd';
+import { Form, Input, DatePicker, TimePicker, Checkbox, Select } from 'antd';
 import { Button } from '@mui/material';
 import axios from 'axios';
-import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { Box, Card, Container, Typography, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -10,15 +9,65 @@ import jwt_decode from 'jwt-decode';
 import moment from 'moment'
 import { useParams } from "react-router-dom";
 import Page from '../../../components/Page';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { PostcodeLookup } from "@ideal-postcodes/postcode-lookup";
 
 const { TextArea } = Input;
 
 const App = () => {
     const [form] = Form.useForm();
-    const [success, setSuccess] = useState(false);
     const { id } = useParams();
     const [data, SetData] = useState({});
+    const [companies, setCompany] = useState([])
+    const [teams, setTeam] = useState([])
 
+    // Dialog
+    const [open, setOpen] = useState(false);
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    useEffect(() => {
+        // get Companies
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/getCompany`)
+            .then((res) => {
+                var temp = [];
+                for (let i = 0; i < res.data.length; i++) {
+                    let val = {}
+                    val.value = res.data[i].id;
+                    val.label = res.data[i].company_name;
+                    temp.push(val)
+                }
+                setCompany(temp)
+            })
+        // get Team
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/getTeam`)
+            .then((res) => {
+                var temp = [];
+                for (let i = 0; i < res.data.length; i++) {
+                    let val = {}
+                    val.value = res.data[i].id;
+                    val.label = res.data[i].team_name;
+                    temp.push(val)
+                }
+                setTeam(temp)
+            })
+        PostcodeLookup.setup({
+            context: "#lookup_field",
+            apiKey: "iddqd",
+            strictlyPostcodes: false,
+            placeholder: "Search for a postcode or address",
+            selectSinglePremise: true,
+            outputFields: {
+                line_1: "#first_line",
+                line_2: "#second_line",
+                line_3: "#third_line",
+                post_town: "#post_town",
+                postcode: "#postcode"
+            },
+        });
+    }, []);
     const onFinish = (values) => {
         values.email = jwt_decode(localStorage.getItem('token')).email
         values.startdate = moment(values.startdate).format('YYYY-MM-DD')
@@ -29,15 +78,10 @@ const App = () => {
         axios
             .post(`${process.env.REACT_APP_SERVER_URL}/editjobs`, { id: data.job_id, value: values })
             .then((res) => {
-                message.config({ top: 100, duration: 5, });
                 if (res.data.flag === 'success') {
-                    setSuccess(true);
-                    message.success(`You have successfully edited job.`);
+                    setOpen(true);
                 }
             })
-            .catch((err) => {
-
-            });
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -54,12 +98,44 @@ const App = () => {
                 input.starttime = moment(input.starttime)
                 input.tags = JSON.parse(input.tags)
                 form.setFieldsValue(input);
+                console.log(input)
             })
     }, []);
 
     return (
         <>
             <Page title="The Yorkshire Resin Company Ltd | Edit Job">
+                <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <Stack direction="row" spacing={5} sx={{ mt: "20px" }}>
+                        <Box sx={{ display: "flex", justifyContent: "center", width: "150px" }}>
+                            <CheckCircleOutlineIcon sx={{ mt: "20px", ml: "40px", mr: "20px", borderRadius: "10px", padding: "15px", background: "#eee", width: "70px", height: "70px" }} />
+                        </Box>
+                        <Box sx={{ m: "0px !important" }}>
+                            <DialogTitle id="alert-dialog-title">
+                                {"Job updated successfully!"}
+                            </DialogTitle>
+                            <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                    <Box>
+                                        {/* Let Google help apps determine location. This means sending anonymous
+                                        location data to Google, even when no apps are running. */}
+                                    </Box>
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button variant='outlined' onClick={handleClose} autoFocus>
+                                    Cancel
+                                </Button>
+                            </DialogActions>
+                        </Box>
+                    </Stack>
+                </Dialog>
+
                 <Typography
                     color="text.primary"
                     sx={{
@@ -74,12 +150,6 @@ const App = () => {
                 <Card>
                     <Box sx={{ p: { xs: 3, md: 5 } }}>
                         <Container>
-                            {
-                                success &&
-                                <Stack sx={{ width: '100%', my: '15px' }} spacing={2}>
-                                    <Alert severity="success">Success. You added job.</Alert>
-                                </Stack>
-                            }
                             <Form
                                 form={form}
                                 name="basic"
@@ -101,35 +171,22 @@ const App = () => {
                                     <Grid item xs={12} md={6} lg={3}>
                                         <Form.Item
                                             label="Select Company"
-                                            name="compnay"
+                                            name="company"
                                             rules={[
                                                 {
                                                     required: true,
-                                                    message: 'Please input company!',
+                                                    message: 'Please select company!',
                                                 },
                                             ]}
                                         >
                                             <Select
-                                                showSearch
-                                                placeholder="Select a Team"
+                                                size='large'
+                                                placeholder="Select a Company"
                                                 optionFilterProp="children"
                                                 filterOption={(input, option) =>
                                                     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
                                                 }
-                                                options={[
-                                                    {
-                                                        value: 'jack',
-                                                        label: 'Jack',
-                                                    },
-                                                    {
-                                                        value: 'lucy',
-                                                        label: 'Lucy',
-                                                    },
-                                                    {
-                                                        value: 'tom',
-                                                        label: 'Tom',
-                                                    },
-                                                ]}
+                                                options={companies}
                                             />
                                         </Form.Item>
                                     </Grid>
@@ -147,7 +204,7 @@ const App = () => {
                                                 },
                                             ]}
                                         >
-                                            <Input />
+                                            <Input size="large" />
                                         </Form.Item>
                                     </Grid>
                                     <Grid item xs={12} md={6} lg={3}>
@@ -163,7 +220,7 @@ const App = () => {
                                         >
                                             <Select
                                                 mode="tags"
-                                                size="middle"
+                                                size="large"
                                                 placeholder="Please select"
                                                 style={{
                                                     width: '100%',
@@ -184,7 +241,7 @@ const App = () => {
                                                 },
                                             ]}
                                         >
-                                            <DatePicker style={{ width: '100%' }} />
+                                            <DatePicker size="large" style={{ width: '100%' }} />
                                         </Form.Item>
                                     </Grid>
                                     <Grid item xs={12} md={6} lg={3}>
@@ -198,7 +255,7 @@ const App = () => {
                                                 },
                                             ]}
                                         >
-                                            <TimePicker format='HH:mm' style={{ width: '100%' }} />
+                                            <TimePicker size="large" format='HH:mm' style={{ width: '100%' }} />
                                         </Form.Item>
                                     </Grid>
                                     <Grid item xs={12} md={6} lg={3}>
@@ -212,7 +269,7 @@ const App = () => {
                                                 },
                                             ]}
                                         >
-                                            <DatePicker style={{ width: '100%' }} />
+                                            <DatePicker size="large" style={{ width: '100%' }} />
                                         </Form.Item>
                                     </Grid>
                                     <Grid item xs={12} md={6} lg={3}>
@@ -228,25 +285,13 @@ const App = () => {
                                         >
                                             <Select
                                                 showSearch
+                                                size="large"
                                                 placeholder="Select a Team"
                                                 optionFilterProp="children"
                                                 filterOption={(input, option) =>
                                                     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
                                                 }
-                                                options={[
-                                                    {
-                                                        value: 'jack',
-                                                        label: 'Jack',
-                                                    },
-                                                    {
-                                                        value: 'lucy',
-                                                        label: 'Lucy',
-                                                    },
-                                                    {
-                                                        value: 'tom',
-                                                        label: 'Tom',
-                                                    },
-                                                ]}
+                                                options={teams}
                                             />
                                         </Form.Item>
                                     </Grid>
@@ -281,68 +326,62 @@ const App = () => {
                                         },
                                     ]}
                                 >
-                                    <TextArea rows={4} />
+                                    <TextArea rows={6} />
                                 </Form.Item>
 
                                 <Form.Item
                                     label="To Address"
                                 >
-                                    <Grid container spacing={3}>
+                                    <Grid item xs={12} md={6} lg={12}>
+                                        <div id="lookup_field" value="NR12 9DB 10"></div>
+                                    </Grid>
+                                    <Grid container spacing={3} sx={{ mt: '15px' }}>
                                         <Grid item xs={12} md={6} lg={3}>
                                             <Form.Item
                                                 name="address"
                                             >
-                                                <Input placeholder='Address' />
+                                                <Input id="first_line" size="large" placeholder='Address' />
                                             </Form.Item>
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={3}>
                                             <Form.Item
                                                 name="address2"
                                             >
-                                                <Input placeholder='Address2' />
+                                                <Input id="second_line" size="large" placeholder='Address2' />
                                             </Form.Item>
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={3}>
                                             <Form.Item
                                                 name="address3"
                                             >
-                                                <Input placeholder='Address3' />
+                                                <Input id="third_line" size="large" placeholder='Address3' />
                                             </Form.Item>
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={3}>
-                                            <Form.Item
-                                                name="country"
-                                            >
-                                                <Input placeholder='United Kingdom' />
-                                            </Form.Item>
+                                            <Input size="large" value='United Kingdom' />
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={3} >
                                             <Form.Item
                                                 name="city"
                                             >
-                                                <Input placeholder='City' />
+                                                <Input id="post_town" size="large" placeholder='City' />
                                             </Form.Item>
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={3}>
                                             <Form.Item
                                                 name="countrystate"
                                             >
-                                                <Input placeholder='Country/State' />
+                                                <Input size="large" placeholder='Country/State' />
                                             </Form.Item>
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={3}>
                                             <Form.Item
                                                 name="postcode"
                                             >
-                                                <Input placeholder='Post Code' />
+                                                <Input id="postcode" size="large" placeholder='Post Code' />
                                             </Form.Item>
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={3}>
-                                            <Form.Item
-                                                name="findaddress"
-                                            >
-                                                <Input placeholder='Find Address' />
-                                            </Form.Item>
                                         </Grid>
 
                                         {/* 3 */}
@@ -351,7 +390,7 @@ const App = () => {
                                                 label="Referal"
                                                 name="referal"
                                             >
-                                                <Input placeholder='Referal' />
+                                                <Input size="large" placeholder='Referal' />
                                             </Form.Item>
                                         </Grid>
 
@@ -360,7 +399,7 @@ const App = () => {
                                                 label="Responsible"
                                                 name="responsible"
                                             >
-                                                <Input placeholder='Responsible' />
+                                                <Input size="large" placeholder='Responsible' />
                                             </Form.Item>
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={3}>
@@ -368,7 +407,7 @@ const App = () => {
                                                 label="Priority"
                                                 name="priority"
                                             >
-                                                <Input placeholder='Priority' />
+                                                <Input size="large" placeholder='Priority' />
                                             </Form.Item>
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={3}>
@@ -376,14 +415,14 @@ const App = () => {
                                                 name="resin"
                                                 valuePropName="checked"
                                             >
-                                                <Checkbox>Resin Customer</Checkbox>
+                                                <Checkbox style={{ marginTop: '37px' }}>Resin Customer</Checkbox>
                                             </Form.Item>
                                         </Grid>
 
                                     </Grid>
                                 </Form.Item>
 
-                                <Box sx={{ background: '#F3F1EB', padding: '25px', mx: '-25px', mb: '20px' }}>
+                                <Box sx={{ background: '#F3F1EB', padding: '25px', mb: '20px', borderRadius: '3px' }}>
                                     <Grid container spacing={3}>
                                         <Grid item xs={12} md={6} lg={3}>
                                             <Form.Item
@@ -396,7 +435,7 @@ const App = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input placeholder='BRITISH POUND' />
+                                                <Input size="large" placeholder='BRITISH POUND' />
                                             </Form.Item>
                                         </Grid>
                                         <Grid item xs={12} md={6} lg={3}>
@@ -411,6 +450,7 @@ const App = () => {
                                                 ]}
                                             >
                                                 <Select
+                                                    size="large"
                                                     showSearch
                                                     placeholder="Select a Team"
                                                     optionFilterProp="children"
@@ -449,7 +489,7 @@ const App = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input />
+                                                <Input size="large" />
                                             </Form.Item>
                                         </Grid>
                                     </Grid>
@@ -477,6 +517,7 @@ const App = () => {
                                             >
                                                 <Select
                                                     showSearch
+                                                    size="large"
                                                     placeholder="Select a Team"
                                                     optionFilterProp="children"
                                                     filterOption={(input, option) =>
@@ -505,71 +546,6 @@ const App = () => {
                                         </Grid>
                                     </Grid>
                                 </Box>
-
-                                {/* <Form.Item
-                                    label="Responsible"
-                                    name="responsible"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your responsible!',
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
-
-                                <Form.Item
-                                    label="Quoted"
-                                    name="quoted"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your quoted!',
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
-
-                                <Form.Item
-                                    label="Category"
-                                    name="category"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your category!',
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
-
-                                <Form.Item
-                                    label="Status"
-                                    name="status"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your status!',
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
-
-                                <Form.Item
-                                    label="Status2"
-                                    name="status2"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your status2!',
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item> */}
 
                                 <Form.Item
                                     wrapperCol={{

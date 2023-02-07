@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input, Select, message, Switch } from 'antd';
 import { Button } from '@mui/material';
 import axios from 'axios';
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
 import { Box, Card, Container, Typography, Grid } from '@mui/material';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -16,7 +14,7 @@ const { TextArea } = Input;
 
 const App = () => {
     const [form] = Form.useForm();
-    const [success, setSuccess] = useState(false);
+    const [companies, setCompany] = useState([]);
     const { id } = useParams();
 
     const onFinish = (values) => {
@@ -31,7 +29,6 @@ const App = () => {
             .then((res) => {
                 message.config({ top: 100, duration: 5, });
                 if (res.data.flag === 'success') {
-                    setSuccess(true);
                     message.success(`You have successfully edited new task.`);
                 }
             })
@@ -39,6 +36,21 @@ const App = () => {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
+    useEffect(() => {
+        // get Companies
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/getCompany`)
+            .then((res) => {
+                var temp = [];
+                for (let i = 0; i < res.data.length; i++) {
+                    let val = {}
+                    val.value = res.data[i].id;
+                    val.label = res.data[i].company_name;
+                    temp.push(val)
+                }
+                setCompany(temp)
+            })
+    }, []);
 
     useEffect(() => {
         axios
@@ -53,7 +65,7 @@ const App = () => {
 
     return (
         <>
-            <Page title="The Yorkshire Resin Company Ltd | Add New Task">
+            <Page title="The Yorkshire Resin Company Ltd | Edit New Task">
                 <Typography
                     color="text.primary"
                     sx={{
@@ -63,17 +75,11 @@ const App = () => {
                         padding: '10px',
                         mb: '20px'
                     }}>
-                    ADD NEW TASK
+                    Edit TASK
                 </Typography>
                 <Card>
                     <Box sx={{ p: { xs: 3, md: 5 } }}>
                         <Container>
-                            {
-                                success &&
-                                <Stack sx={{ width: '100%', my: '15px' }} spacing={2}>
-                                    <Alert severity="success">Success. You added task.</Alert>
-                                </Stack>
-                            }
                             <Form
                                 form={form}
                                 name="basic"
@@ -104,25 +110,10 @@ const App = () => {
                                         >
                                             <Select
                                                 showSearch
+                                                size='large'
                                                 placeholder="Select Company"
                                                 optionFilterProp="children"
-                                                filterOption={(input, option) =>
-                                                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                                                }
-                                                options={[
-                                                    {
-                                                        value: 'jack',
-                                                        label: 'Jack',
-                                                    },
-                                                    {
-                                                        value: 'lucy',
-                                                        label: 'Lucy',
-                                                    },
-                                                    {
-                                                        value: 'tom',
-                                                        label: 'Tom',
-                                                    },
-                                                ]}
+                                                options={companies}
                                             />
                                         </Form.Item>
                                     </Grid>
@@ -140,7 +131,7 @@ const App = () => {
                                                 },
                                             ]}
                                         >
-                                            <Input />
+                                            <Input size='large' />
                                         </Form.Item>
                                     </Grid>
                                 </Grid>
@@ -157,7 +148,7 @@ const App = () => {
                                                 },
                                             ]}
                                         >
-                                            <TextArea rows={4} />
+                                            <TextArea rows={5} />
                                         </Form.Item>
                                     </Grid>
                                 </Grid>
@@ -175,6 +166,7 @@ const App = () => {
                                             ]}
                                         >
                                             <Select
+                                                size='large'
                                                 mode="multiple"
                                                 style={{
                                                     width: '100%',
@@ -208,14 +200,12 @@ const App = () => {
                                     />
                                 </Form.Item>
 
-                                <Form.Item
-                                    style={{ textAlign: 'left' }}
-                                >
-                                    <Button sx={{ mx: '15px' }} variant="contained" type="submit">
+                                <Form.Item>
+                                    <Button sx={{ mr: '15px' }} variant="contained" type="submit">
                                         Submit
                                     </Button>
                                     <Link to="/dashboard/task" style={{ textDecoration: 'none' }}>
-                                        <Button variant="outlined">Cancel</Button>
+                                        <Button variant="contained" className='btn_cancel'>Cancel</Button>
                                     </Link>
                                 </Form.Item>
                             </Form>

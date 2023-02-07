@@ -18,6 +18,12 @@ import MyAvatar from '../../components/MyAvatar';
 import MenuPopover from '../../components/MenuPopover';
 import { useNavigate } from 'react-router-dom';
 
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 // ----------------------------------------------------------------------
 
 const MENU_OPTIONS = [
@@ -58,8 +64,40 @@ export default function AccountPopover() {
     navigate('/auth/login')
   };
 
+  // Dialog
+  const [dialog, setDialog] = useState(false);
+
+  const handleClickOpen = () => {
+    setDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialog(false);
+  };
+
   return (
     <>
+      <Dialog
+        open={dialog}
+        onClose={handleCloseDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        sx={{ textAlign: 'center' }}
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Sure you want to Log Out?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to accept this?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ justifyContent: 'center' }}>
+          <Button variant='outlined' onClick={handleCloseDialog} autoFocus>No, cancel</Button>
+          <Button variant='contained' onClick={handleLogout}>Yes, confirm</Button>
+        </DialogActions>
+      </Dialog>
+      
       <MIconButton
         ref={anchorRef}
         onClick={handleOpen}
@@ -118,7 +156,7 @@ export default function AccountPopover() {
         ))}
 
         <Box sx={{ p: 2, pt: 1.5 }}>
-          <Button fullWidth color="inherit" variant="outlined" onClick={handleLogout}>
+          <Button fullWidth color="inherit" variant="outlined" onClick={handleClickOpen}>
             Logout
           </Button>
         </Box>

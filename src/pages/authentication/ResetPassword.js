@@ -20,8 +20,6 @@ import { MHidden } from '../../components/@material-extend';
 //
 import { SentIcon } from '../../assets';
 
-// ----------------------------------------------------------------------
-
 const RootStyle = styled(Page)(({ theme }) => ({
   display: 'flex',
   minHeight: '100%',

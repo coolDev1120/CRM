@@ -3,7 +3,6 @@ import { Form, Input, Select, Switch } from 'antd';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Button } from '@mui/material';
 import axios from 'axios';
-import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { Box, Card, Container, Typography, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -13,7 +12,6 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } 
 import { useParams } from "react-router-dom";
 import { PostcodeLookup } from "@ideal-postcodes/postcode-lookup";
 import $ from 'jquery'
-import "./style.css"
 const { TextArea } = Input;
 
 const App = () => {
@@ -83,7 +81,6 @@ const App = () => {
         axios.post(`${process.env.REACT_APP_SERVER_URL}/getContactByid`, { id: id })
             .then((res) => {
                 SetData(res.data)
-                console.log(res.data.data[0])
                 form.setFieldsValue(res.data.data[0]);
             })
 

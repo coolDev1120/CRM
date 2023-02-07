@@ -12,7 +12,6 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { PostcodeLookup } from "@ideal-postcodes/postcode-lookup";
 import $ from 'jquery'
-import "./style.css"
 
 const { TextArea } = Input;
 

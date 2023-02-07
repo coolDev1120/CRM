@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Select, message, Switch } from 'antd';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Button } from '@mui/material';
@@ -14,6 +14,10 @@ const { TextArea } = Input;
 
 const App = () => {
     const [success, setSuccess] = useState(false);
+    const [companies, setCompany] = useState([]);
+    const [categories, setCategory] = useState([]);
+    const [subcategories, setSubcategory] = useState([]);
+    const [sub2categories, setSub2category] = useState([]);
 
     const onFinish = (values) => {
         values.email = jwt_decode(localStorage.getItem('token')).email
@@ -31,13 +35,65 @@ const App = () => {
                     message.success(`You have successfully added new material.`);
                 }
             })
-            .catch((err) => {
-
-            });
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
+    useEffect(() => {
+        // get Companies
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/getCompany`)
+            .then((res) => {
+                var temp = [];
+                for (let i = 0; i < res.data.length; i++) {
+                    let val = {}
+                    val.value = res.data[i].id;
+                    val.label = res.data[i].company_name;
+                    temp.push(val)
+                }
+                console.log(temp)
+                setCompany(temp)
+            })
+        // get Cetegories
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/getCategory`)
+            .then((res) => {
+                var temp = [];
+                for (let i = 0; i < res.data.length; i++) {
+                    let val = {}
+                    val.value = res.data[i].id;
+                    val.label = res.data[i].category_name;
+                    temp.push(val)
+                }
+                console.log(temp)
+                setCategory(temp)
+            })
+        // get Subcategories
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/getSubCategory`)
+            .then((res) => {
+                var temp = [];
+                for (let i = 0; i < res.data.length; i++) {
+                    let val = {}
+                    val.value = res.data[i].id;
+                    val.label = res.data[i].subcategory_name;
+                    temp.push(val)
+                }
+                console.log(temp)
+                setSubcategory(temp)
+            })
+        // get Sub2categories
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/getSub2Category`)
+            .then((res) => {
+                var temp = [];
+                for (let i = 0; i < res.data.length; i++) {
+                    let val = {}
+                    val.value = res.data[i].id;
+                    val.label = res.data[i].sub2category_name;
+                    temp.push(val)
+                }
+                console.log(temp)
+                setSub2category(temp)
+            })
+    }, []);
 
     return (
         <>
@@ -91,26 +147,12 @@ const App = () => {
                                         >
                                             <Select
                                                 size="large"
-                                                showSearch
                                                 placeholder="Select Company"
                                                 optionFilterProp="children"
                                                 filterOption={(input, option) =>
                                                     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
                                                 }
-                                                options={[
-                                                    {
-                                                        value: 'jack',
-                                                        label: 'Jack',
-                                                    },
-                                                    {
-                                                        value: 'lucy',
-                                                        label: 'Lucy',
-                                                    },
-                                                    {
-                                                        value: 'tom',
-                                                        label: 'Tom',
-                                                    },
-                                                ]}
+                                                options={companies}
                                             />
                                         </Form.Item>
                                     </Grid>
@@ -126,26 +168,12 @@ const App = () => {
                                         >
                                             <Select
                                                 size="large"
-                                                showSearch
                                                 placeholder="Select Category"
                                                 optionFilterProp="children"
                                                 filterOption={(input, option) =>
                                                     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
                                                 }
-                                                options={[
-                                                    {
-                                                        value: 'jack',
-                                                        label: 'Jack',
-                                                    },
-                                                    {
-                                                        value: 'lucy',
-                                                        label: 'Lucy',
-                                                    },
-                                                    {
-                                                        value: 'tom',
-                                                        label: 'Tom',
-                                                    },
-                                                ]}
+                                                options={categories}
                                             />
                                         </Form.Item>
                                     </Grid>
@@ -161,26 +189,12 @@ const App = () => {
                                         >
                                             <Select
                                                 size="large"
-                                                showSearch
                                                 placeholder="Select sub-category"
                                                 optionFilterProp="children"
                                                 filterOption={(input, option) =>
                                                     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
                                                 }
-                                                options={[
-                                                    {
-                                                        value: 'jack',
-                                                        label: 'Jack',
-                                                    },
-                                                    {
-                                                        value: 'lucy',
-                                                        label: 'Lucy',
-                                                    },
-                                                    {
-                                                        value: 'tom',
-                                                        label: 'Tom',
-                                                    },
-                                                ]}
+                                                options={subcategories}
                                             />
                                         </Form.Item>
                                     </Grid>
@@ -202,20 +216,7 @@ const App = () => {
                                                 filterOption={(input, option) =>
                                                     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
                                                 }
-                                                options={[
-                                                    {
-                                                        value: 'jack',
-                                                        label: 'Jack',
-                                                    },
-                                                    {
-                                                        value: 'lucy',
-                                                        label: 'Lucy',
-                                                    },
-                                                    {
-                                                        value: 'tom',
-                                                        label: 'Tom',
-                                                    },
-                                                ]}
+                                                options={sub2categories}
                                             />
                                         </Form.Item>
                                     </Grid>
@@ -414,12 +415,7 @@ const App = () => {
                                     </Grid>
                                 </Box>
 
-                                <Form.Item
-                                    wrapperCol={{
-                                        offset: 0,
-                                        span: 16
-                                    }}
-                                >
+                                <Form.Item>
                                     <Button sx={{ mr: '15px' }} variant="contained" type="submit">
                                         Submit
                                     </Button>

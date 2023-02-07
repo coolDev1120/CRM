@@ -65,7 +65,6 @@ const StyledMenu = styled((props) => (
 
 
 export default function EcommerceProductList() {
-	const [age, setAge] = React.useState('');
 	const [data, setData] = useState([]);
 	const [perpage, setPerpage] = useState(10);
 	const [current, setCurrent] = useState(1);
@@ -75,18 +74,14 @@ export default function EcommerceProductList() {
 	const [order, setOrder] = useState('descend');
 	const [field, setField] = useState('job_id');
 	const [refresh, Setrefresh] = useState(false);
+	const [companies, setCompany] = useState([])
+	const [selectedCompany, setSelectedCompany] = useState('none')
 
 	const ref1 = useRef();
-	const handleChange = (event) => {
-		setAge(event.target.value);
-	};
-
 	const columns = [
 		{
 			title: 'REF',
 			dataIndex: 'key',
-			sorter: (a, b) => a.name - b.name,
-			defaultSortOrder: 'descend',
 		},
 		{
 			title: 'JOB REF',
@@ -239,8 +234,28 @@ export default function EcommerceProductList() {
 	}
 
 	useEffect(() => {
+		// get Companies
+		axios.post(`${process.env.REACT_APP_SERVER_URL}/getCompany`)
+			.then((res) => {
+				var temp = [];
+				for (let i = 0; i < res.data.length; i++) {
+					let val = {}
+					val.value = res.data[i].id;
+					val.label = res.data[i].company_name;
+					temp.push(val)
+				}
+				console.log(temp)
+				setCompany(temp)
+			})
+	}, []);
+
+	useEffect(() => {
+		var selectOption = []
+		if (selectedCompany !== 'none') {
+			selectOption.push({ name: 'company', value: selectedCompany })
+		}
 		axios
-			.post(`${process.env.REACT_APP_SERVER_URL}/getjobs`, { current: current, perpage: perpage, search: search2, order: order, field: field })
+			.post(`${process.env.REACT_APP_SERVER_URL}/getjobs`, { current: current, perpage: perpage, search: search2, order: order, field: field, option: selectOption })
 			.then((res) => {
 				console.log(res.data.data)
 				var temp = [];
@@ -252,10 +267,7 @@ export default function EcommerceProductList() {
 				setData(res.data.data);
 				setTotal(res.data.total);
 			})
-			.catch((err) => {
-
-			});
-	}, [current, perpage, search2, order, field, refresh]);
+	}, [current, perpage, search2, order, field, refresh, selectedCompany]);
 
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
@@ -289,16 +301,16 @@ export default function EcommerceProductList() {
 								<Select
 									labelId="select-company"
 									id="company"
-									value={age}
+									value={selectedCompany}
 									label="Select Company"
-									onChange={handleChange}
+									onChange={(e) => setSelectedCompany(e.target.value)}
 								>
 									<MenuItem value="">
 										<em>None</em>
 									</MenuItem>
-									<MenuItem value={10}>Ten</MenuItem>
-									<MenuItem value={20}>Twenty</MenuItem>
-									<MenuItem value={30}>Thirty</MenuItem>
+									{companies.map((val) =>
+                                        <MenuItem key={val.value} value={val.value}>{val.label}</MenuItem>
+                                    )}
 								</Select>
 							</FormControl>
 						</Box>

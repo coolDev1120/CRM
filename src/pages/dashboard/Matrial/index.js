@@ -4,7 +4,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Pdf from 'react-to-pdf';
-import { Table, Pagination, Space, Input, Button as Button2, Popconfirm, message, Tag } from 'antd';
+import { Table, Pagination, Space, Input, Popconfirm, message, Tag } from 'antd';
 // icons
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
@@ -71,7 +71,6 @@ export default function EcommerceProductList() {
 	const theme = useTheme();
 	const PRIMARY_MAIN = theme.palette.primary.main;
 
-	const [age, setAge] = React.useState('');
 	const [data, setData] = useState([]);
 	const [perpage, setPerpage] = useState(10);
 	const [current, setCurrent] = useState(1);
@@ -81,12 +80,14 @@ export default function EcommerceProductList() {
 	const [order, setOrder] = useState('descend');
 	const [field, setField] = useState('material_id');
 	const [refresh, Setrefresh] = useState(false);
+	const [companies, setCompany] = useState([]);
+	const [categories, setCategory] = useState([]);
+	const [subcategories, setSubcategory] = useState([]);
+	const [selectedCompany, setSelectedCompany] = useState('none')
+	const [selectedCategory, setSelectedCategory] = useState('none')
+	const [selectedSubcategory, setSelectedSubcategory] = useState('none')
 
 	const ref1 = useRef();
-	const handleChange = (event) => {
-		setAge(event.target.value);
-	};
-
 	const columns = [
 		{
 			title: 'REF',
@@ -206,8 +207,61 @@ export default function EcommerceProductList() {
 	}
 
 	useEffect(() => {
+		// get Companies
+		axios.post(`${process.env.REACT_APP_SERVER_URL}/getCompany`)
+			.then((res) => {
+				var temp = [];
+				for (let i = 0; i < res.data.length; i++) {
+					let val = {}
+					val.value = res.data[i].id;
+					val.label = res.data[i].company_name;
+					temp.push(val)
+				}
+				console.log(temp)
+				setCompany(temp)
+			})
+		// get Cetegories
+		axios.post(`${process.env.REACT_APP_SERVER_URL}/getCategory`)
+			.then((res) => {
+				var temp = [];
+				for (let i = 0; i < res.data.length; i++) {
+					let val = {}
+					val.value = res.data[i].id;
+					val.label = res.data[i].category_name;
+					temp.push(val)
+				}
+				console.log(temp)
+				setCategory(temp)
+			})
+		// get Subcategories
+		axios.post(`${process.env.REACT_APP_SERVER_URL}/getSubCategory`)
+			.then((res) => {
+				var temp = [];
+				for (let i = 0; i < res.data.length; i++) {
+					let val = {}
+					val.value = res.data[i].id;
+					val.label = res.data[i].subcategory_name;
+					temp.push(val)
+				}
+				console.log(temp)
+				setSubcategory(temp)
+			})
+	}, []);
+
+	useEffect(() => {
+		var selectOption = []
+		if (selectedCompany !== 'none') {
+			selectOption.push({ name: 'company', value: selectedCompany })
+		}
+		if (selectedCategory !== 'none') {
+			selectOption.push({ name: 'category', value: selectedCategory })
+		}
+		if (selectedSubcategory !== 'none') {
+			selectOption.push({ name: 'subcategory', value: selectedSubcategory })
+		}
+		console.log(selectOption)
 		axios
-			.post(`${process.env.REACT_APP_SERVER_URL}/getmaterial`, { current: current, perpage: perpage, search: search2, order: order, field: field })
+			.post(`${process.env.REACT_APP_SERVER_URL}/getmaterial`, { current: current, perpage: perpage, search: search2, order: order, field: field, option: selectOption })
 			.then((res) => {
 				console.log(res.data.data)
 				var temp = [];
@@ -219,10 +273,7 @@ export default function EcommerceProductList() {
 				setData(res.data.data);
 				setTotal(res.data.total);
 			})
-			.catch((err) => {
-
-			});
-	}, [current, perpage, search2, order, field, refresh]);
+	}, [current, perpage, search2, order, field, refresh, selectedCompany, selectedCategory, selectedSubcategory]);
 
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
@@ -257,16 +308,16 @@ export default function EcommerceProductList() {
 								<Select
 									labelId="select-company"
 									id="company"
-									value={age}
+									value={selectedCompany}
 									label="Select Company"
-									onChange={handleChange}
+									onChange={(e) => setSelectedCompany(e.target.value)}
 								>
 									<MenuItem value="">
 										<em>None</em>
 									</MenuItem>
-									<MenuItem value={10}>Ten</MenuItem>
-									<MenuItem value={20}>Twenty</MenuItem>
-									<MenuItem value={30}>Thirty</MenuItem>
+									{companies.map((val) =>
+										<MenuItem key={val.value} value={val.value}>{val.label}</MenuItem>
+									)}
 								</Select>
 							</FormControl>
 						</Box>
@@ -276,16 +327,16 @@ export default function EcommerceProductList() {
 								<Select
 									labelId="select-category"
 									id="category"
-									value={age}
-									label="select-category"
-									onChange={handleChange}
+									value={selectedCategory}
+									label="Select Company"
+									onChange={(e) => setSelectedCategory(e.target.value)}
 								>
 									<MenuItem value="">
 										<em>None</em>
 									</MenuItem>
-									<MenuItem value={10}>Ten</MenuItem>
-									<MenuItem value={20}>Twenty</MenuItem>
-									<MenuItem value={30}>Thirty</MenuItem>
+									{categories.map((val) =>
+										<MenuItem key={val.value} value={val.value}>{val.label}</MenuItem>
+									)}
 								</Select>
 							</FormControl>
 						</Box>
@@ -295,16 +346,16 @@ export default function EcommerceProductList() {
 								<Select
 									labelId="select-subcategory"
 									id="subcategory"
-									value={age}
-									label="select-subcategory"
-									onChange={handleChange}
+									value={selectedSubcategory}
+									label="Select Company"
+									onChange={(e) => setSelectedSubcategory(e.target.value)}
 								>
 									<MenuItem value="">
 										<em>None</em>
 									</MenuItem>
-									<MenuItem value={10}>Ten</MenuItem>
-									<MenuItem value={20}>Twenty</MenuItem>
-									<MenuItem value={30}>Thirty</MenuItem>
+									{subcategories.map((val) =>
+										<MenuItem key={val.value} value={val.value}>{val.label}</MenuItem>
+									)}
 								</Select>
 							</FormControl>
 						</Box>
@@ -329,11 +380,11 @@ export default function EcommerceProductList() {
 						</FormControl>
 						<div style={{ flex: '1 1 0%', textAlign: 'right' }}>
 							<Input onChange={(e) => Setsearch(e.target.value)} onKeyPress={handlekeypress} size="large" placeholder="Search..." style={{ width: '200px' }} />
-							<Button sx={{mx: '20px'}} variant="outlined" startIcon={<UpgradeIcon />} endIcon={<KeyboardArrowDownIcon />}>
+							<Button sx={{ mx: '20px' }} variant="outlined" startIcon={<UpgradeIcon />} endIcon={<KeyboardArrowDownIcon />}>
 								CSV import
 							</Button>
 							<Button
-								sx={{ mr: '20px'}}
+								sx={{ mr: '20px' }}
 								id="demo-customized-button"
 								aria-controls={open ? 'demo-customized-menu' : undefined}
 								aria-haspopup="true"
